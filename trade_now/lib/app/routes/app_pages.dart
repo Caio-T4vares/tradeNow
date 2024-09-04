@@ -10,7 +10,7 @@ part "./app_routes.dart";
 
 class AppPages {
   final List<GetPage> pages = [
-    GetPage(name: Routes.home, page: () => const HomePage()),
+    GetPage(name: Routes.home, page: () => HomePage()),
     GetPage(name: Routes.login, page: () => const LoginPage()),
     GetPage(name: Routes.register, page: () => const RegisterPage()),
     GetPage(name: Routes.announcement, page: () => const AnnouncementPage()),
