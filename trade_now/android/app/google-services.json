@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "461927248816",
+    "project_id": "tradenow-a119d",
+    "storage_bucket": "tradenow-a119d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461927248816:android:d136e1b1ede0ffff9d5c75",
+        "android_client_info": {
+          "package_name": "com.example.trade_now"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPdLPrPeU5ceHd5ZhxRMQxXC2LVm0PFRk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
