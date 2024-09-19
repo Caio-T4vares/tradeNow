@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:trade_now/app/core/services/firestore_service.dart';
 import 'package:trade_now/app/routes/app_pages.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -10,6 +10,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Get.put(FirestoreService());
   runApp(const TradeNowApp());
 }
 
@@ -22,7 +23,7 @@ class TradeNowApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: Get.key,
       title: "Trade Now",
-      initialRoute: Routes.login,
+      initialRoute: Routes.details,
       getPages: AppPages().pages,
     );
   }
