@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProductCard extends StatelessWidget {
-  final String imgUrl;
+  final List<String> imgsUrl;
   final String name;
   final double price;
   const ProductCard(
       {super.key,
-      required this.imgUrl,
+      required this.imgsUrl,
       required this.name,
       required this.price});
 
   @override
   Widget build(BuildContext context) {
+    var screenWidth = Get.mediaQuery.size.width;
+    var screenHeight = Get.mediaQuery.size.height;
     return Card(
       child: Column(
         children: [
