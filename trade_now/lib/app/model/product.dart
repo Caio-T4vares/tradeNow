@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Product {
   String? id;
   List<String> imgsUrl;

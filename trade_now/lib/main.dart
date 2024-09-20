@@ -23,7 +23,7 @@ class TradeNowApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: Get.key,
       title: "Trade Now",
-      initialRoute: Routes.details,
+      initialRoute: Routes.search,
       getPages: AppPages().pages,
     );
   }
