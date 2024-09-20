@@ -17,7 +17,7 @@ class PerfilPage extends StatelessWidget {
         title: const Text(
           "Perfil",
           style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 36),
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 28),
         ),
         centerTitle: true,
         toolbarHeight: 80,
@@ -115,7 +115,7 @@ class PerfilPage extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        //TODO Levar para tela de endereços
+                        Get.toNamed('/address');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,

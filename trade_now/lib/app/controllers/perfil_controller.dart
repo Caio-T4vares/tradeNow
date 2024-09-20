@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http/http.dart' as http;
 
 class PerfilController extends GetxController {
@@ -55,22 +56,22 @@ class PerfilController extends GetxController {
   }
 
   Future<File?> _baixarImagem(String url) async {
-  try {
-    // Usar o pacote http ou dio para baixar a imagem
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      // Salvar a imagem em um arquivo local
-      final directory = await getTemporaryDirectory();
-      final filePath = '${directory.path}/foto_perfil.png';
-      final file = File(filePath);
-      await file.writeAsBytes(response.bodyBytes);
-      return file; // Retornar o arquivo baixado
+    try {
+      // Usar o pacote http ou dio para baixar a imagem
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        // Salvar a imagem em um arquivo local
+        final directory = await getTemporaryDirectory();
+        final filePath = '${directory.path}/foto_perfil.png';
+        final file = File(filePath);
+        await file.writeAsBytes(response.bodyBytes);
+        return file; // Retornar o arquivo baixado
+      }
+    } catch (e) {
+      Get.snackbar("Erro", "Erro ao baixar imagem: $e");
     }
-  } catch (e) {
-    Get.snackbar("Erro", "Erro ao baixar imagem: $e");
+    return null;
   }
-  return null;
-}
 
   Future<void> salvarDados() async {
     try {
@@ -88,7 +89,6 @@ class PerfilController extends GetxController {
           'nome': nomeController.text,
           'cpf': cpfController.text,
           'contato': contactController.text,
-          'enderecos': [],
           'fotoPerfilPath': fotoPerfilUrl
         };
 
@@ -104,11 +104,30 @@ class PerfilController extends GetxController {
   Future<void> selecionarImagem() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-      selectedImage.value = File(image.path);
-      await uploadImagem(); // Faça o upload após a seleção
+      File imageFile = File(image.path);
+      XFile? compressedImage = await compressImage(imageFile);
+
+      if(compressedImage != null) {
+        selectedImage.value = File(compressedImage.path);
+        await uploadImagem();
+      }
     }
   }
 
+  Future<XFile?> compressImage(File imageFile) async {
+    // Defina o caminho para salvar a imagem comprimida
+    final directory = await getTemporaryDirectory();
+    final targetPath = '${directory.path}/compressed_${imageFile.path.split('/').last}';
+
+    // Comprime a imagem
+    var result = await FlutterImageCompress.compressAndGetFile(
+      imageFile.absolute.path,  // Caminho original da imagem
+      targetPath,               // Caminho onde será salva a imagem comprimida
+      quality: 40,              // Qualidade da compressão (0 a 100)
+    );
+
+    return result; // Retorna a imagem comprimida
+  }
 
   Future<void> uploadImagem() async {
     try {
