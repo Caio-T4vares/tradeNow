@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:trade_now/app/controllers/product_details_controller.dart';
 import 'package:trade_now/app/core/constants/color_constants.dart';
 import 'package:trade_now/app/model/product.dart';
+import 'package:trade_now/app/ui/components/app_bar.dart';
 import 'package:trade_now/app/ui/components/product_card.dart';
 
 class ProductDetailsPage extends StatelessWidget {
@@ -16,22 +17,7 @@ class ProductDetailsPage extends StatelessWidget {
     var screenHeight = Get.mediaQuery.size.height;
     final controller = Get.put(ProductDetailsController());
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Get.toNamed("/home");
-            },
-            icon: const Icon(Icons.arrow_back),
-          ),
-          title: const Text(
-            "Anúncio",
-            style: TextStyle(
-                color: lightColor, fontWeight: FontWeight.bold, fontSize: 36),
-          ),
-          centerTitle: true,
-          toolbarHeight: 65,
-          backgroundColor: bgColor,
-        ),
+        appBar: const TopBar(nomePag: "Anúncio"),
         body: Obx(() => SingleChildScrollView(
               child: Column(
                 children: [
@@ -73,7 +59,10 @@ class ProductDetailsPage extends StatelessWidget {
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                                fontSize: 28, fontWeight: FontWeight.w400),
+                                fontSize: 24, fontWeight: FontWeight.w400),
+                          ),
+                          const SizedBox(
+                            height: 10,
                           ),
                           const Divider(
                             color: Colors.grey,
@@ -82,28 +71,56 @@ class ProductDetailsPage extends StatelessWidget {
                             endIndent: 5,
                           ),
                           const SizedBox(
-                            height: 20,
+                            height: 15,
                           ),
                           const Text(
                             "Descrição",
                             style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 20),
+                                fontWeight: FontWeight.w500, fontSize: 18),
                           ),
-                          Container(
-                            height: 100,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black)),
-                            child: Text(
+                          ConstrainedBox(
+                            constraints: const BoxConstraints(
+                                minHeight: 120, maxHeight: 300),
+                            child: Container(
+                              width: screenWidth,
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.grey)),
+                              child: Text(
                                 controller.product.value.description == null
                                     ? ""
-                                    : controller.product.value.description!),
+                                    : controller.product.value.description!,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w200),
+                              ),
+                            ),
                           ),
                           const SizedBox(
-                            height: 30,
+                            height: 20,
+                          ),
+                          Center(
+                            child: TextButton(
+                                onPressed: () => {},
+                                child: Container(
+                                  height: 50,
+                                  width: 140,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.black),
+                                      borderRadius: BorderRadius.circular(8)),
+                                  child: const Center(
+                                    child: Text(
+                                      "Entrar em contato",
+                                    ),
+                                  ),
+                                )),
+                          ),
+                          const SizedBox(
+                            height: 20,
                           ),
                           Text(
-                            "Mais anúncios em ${controller.product.value.category ?? ""}",
+                            "Mais anúncios em \"${controller.product.value.category ?? ""}\"",
                             textAlign: TextAlign.left,
+                            style: const TextStyle(fontSize: 16),
                           ),
                         ],
                       ),
@@ -115,34 +132,20 @@ class ProductDetailsPage extends StatelessWidget {
                       itemCount: controller.productsSameCategory.length > 10
                           ? 10
                           : controller.productsSameCategory.value.length,
-                      shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext build, int index) {
-                        Product prod =
+                        Product product =
                             controller.productsSameCategory.value[index];
                         return TextButton(
-                            onPressed: () => Get.toNamed("/details"),
+                            onPressed: () =>
+                                Get.toNamed("/details", arguments: product),
                             child: ProductCard(
-                                imgsUrl: prod.imgsUrl!,
-                                name: prod.name!,
-                                price: prod.price!));
+                                imgsUrl: product.imgsUrl!,
+                                name: product.name!,
+                                price: product.price!));
                       },
                     ),
                   ),
-                  TextButton(
-                      onPressed: () => {},
-                      child: Container(
-                        height: 50,
-                        width: 140,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black),
-                            borderRadius: BorderRadius.circular(8)),
-                        child: const Center(
-                          child: Text(
-                            "Entrar em contato",
-                          ),
-                        ),
-                      ))
                 ],
               ),
             )));

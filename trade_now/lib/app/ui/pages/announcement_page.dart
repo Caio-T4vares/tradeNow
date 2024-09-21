@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trade_now/app/controllers/announcement_controller.dart';
+import 'package:trade_now/app/ui/components/app_bar.dart';
 
 import '../../core/constants/color_constants.dart';
 
@@ -13,19 +14,7 @@ class AnnouncementPage extends StatelessWidget {
     final controller = Get.put(AnnouncementController());
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Anunciar',
-          style: TextStyle(
-            color: Colors.white, 
-            fontWeight: FontWeight.bold, 
-            fontSize: 28
-          ),
-        ),
-        centerTitle: true,
-        toolbarHeight: 80,
-        backgroundColor: darkerColor
-      ),
+      appBar: const TopBar(nomePag: "Anunciar"),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -34,7 +23,8 @@ class AnnouncementPage extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () async {
-                  await controller.selecionarImagens(); // Função para selecionar imagens
+                  await controller
+                      .selecionarImagens(); // Função para selecionar imagens
                 },
                 child: Obx(() {
                   return Container(
@@ -142,10 +132,8 @@ class AnnouncementPage extends StatelessWidget {
                       onChanged: (value) {
                         controller.selectedCondition.value = value!;
                       },
-                      items: [
-                        'Novo',
-                        'Usado'
-                      ].map<DropdownMenuItem<String>>((String value) {
+                      items: ['Novo', 'Usado']
+                          .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
@@ -164,9 +152,13 @@ class AnnouncementPage extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: buttomColor,
-                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 15),
                   ),
-                  child: const Text('Salvar', style: TextStyle(color: Colors.black, fontSize: 18),),
+                  child: const Text(
+                    'Salvar',
+                    style: TextStyle(color: Colors.black, fontSize: 18),
+                  ),
                 ),
               ),
             ],
