@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:trade_now/app/core/services/firestore_service.dart';
 import 'package:trade_now/app/model/address.dart';
 import 'package:trade_now/app/model/product.dart';
 
@@ -21,6 +22,7 @@ class AnnouncementController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirestoreService _service = Get.find();
 
   Rx<String> selectedCategory = 'Eletrônicos'.obs;
   Rx<String> selectedCondition = 'Novo'.obs;
@@ -189,7 +191,7 @@ class AnnouncementController extends GetxController {
         }).toList();
 
         userProducts.value = products;
-        await fetchAllProductAddresses();
+        productAddress.value = await _service.fetchAllProductAddresses(userProducts);
       }
       else {
         Get.snackbar("Erro", "Usuário não autenticado.");
@@ -231,35 +233,6 @@ class AnnouncementController extends GetxController {
     }
     catch(e) {
       Get.snackbar("Erro", "Erro ao buscar endereços: $e");
-    }
-  }
-
-  Future<void> fetchAllProductAddresses() async {
-    for (var product in userProducts) {
-      final address = await fetchProductAddress(product.addressId);  // Chama a função async para buscar o endereço
-      if (address != null) {
-        productAddress[product.addressId] = address;  // Armazena o endereço no mapa
-      }
-    }
-  }
-
-  Future<Address?> fetchProductAddress(String? addressId) async {
-    try {
-      // Faz a busca do endereço pelo addressId na coleção "addresses"
-      DocumentSnapshot doc = await _firestore.collection('addresses').doc(addressId).get();
-
-      // Verifica se o documento existe
-      if (doc.exists) {
-        // Retorna o endereço convertido do Firestore
-        return Address.fromFirestore(doc);
-      } else {
-        // Caso o endereço não exista, retorna null ou pode lançar uma exceção
-        print('Endereço não encontrado');
-        return null;
-      }
-    } catch (e) {
-      print('Erro ao buscar o endereço: $e');
-      return null;
     }
   }
 }

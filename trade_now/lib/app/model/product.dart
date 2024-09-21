@@ -42,4 +42,17 @@ class Product {
       "category": category
     };
   }
+
+  factory Product.fromMap(Map<String, dynamic> data) {
+    return Product(
+      userId: data["userId"],
+      imgsUrl: List<String>.from(data['imgUrls']),
+      price: data['price']?.toDouble(),
+      name: data['name'],
+      description: data['description'],
+      condition: data['condition'],
+      category: data['category'],
+      addressId: data['addressId']
+    );
+  }
 }

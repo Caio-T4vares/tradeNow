@@ -53,4 +53,15 @@ class Address {
       estado: data['estado'] ?? '',
     );
   }
+
+  factory Address.fromMap(Map<String, dynamic> data) {
+    return Address(
+      estado: data['estado'],
+      cidade: data['cidade'],
+      rua: data['rua'],
+      bairro: data['bairro'],
+      userId: data['userId'],
+      isSelected: data['isSelected'] ?? false,
+    );
+  }
 }

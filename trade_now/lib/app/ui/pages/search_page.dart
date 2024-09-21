@@ -17,6 +17,7 @@ class SearchPage extends StatelessWidget {
     var screenHeight = Get.mediaQuery.size.height;
     List<String> categorias = ["", "Eletrônicos", "Móveis", "Livros"];
     final controller = Get.put(SearchPageController());
+
     return Scaffold(
       appBar: const TopBar(nomePag: "Buscar"),
       body: SizedBox(
@@ -81,56 +82,28 @@ class SearchPage extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            TextButton(
-                onPressed: () {/*pra abrir popup*/},
-                child: Container(
-                    width: 160,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8))),
-                    child: const Row(children: [
-                      Icon(Icons.place),
-                      Text(
-                        "Sua localização",
-                        overflow: TextOverflow.ellipsis,
-                      )
-                    ]))),
+            Obx(() {
+              return Text(
+                controller.currentLocationState.value.isNotEmpty
+                ? 'Exibindo resultados em ${controller.currentLocationState.value}'
+                : 'Localizando...'
+              );
+            }),
             const SizedBox(
               height: 15,
             ),
-            Obx(
-              () => Text(controller.categoria.value == ""
-                  ? ""
-                  : "Encontrados em ${controller.categoria.value}"),
+            Expanded(
+              child: Obx(() {
+                if(controller.productsList.isEmpty || controller.productAddress.isEmpty) {
+                  return const Center(child: Text('Nenhum anúncio encontrado'),);
+                }
+
+                return Padding(
+                  padding: EdgeInsets.all(16),
+                  child: SearchProductCard(products: controller.productsList, productAddresses: controller.productAddress),
+                );
+              }),
             ),
-            const SizedBox(
-              height: 15,
-            ),
-            Obx(() => Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: controller.filteredList.length > 10
-                          ? 10
-                          : controller.filteredList.length,
-                      itemBuilder: (BuildContext build, int index) {
-                        return Column(
-                          children: [
-                            SearchProductCard(
-                                produto: controller.filteredList.value[index]),
-                            const SizedBox(
-                              height: 20,
-                            )
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                ))
           ],
         ),
       ),
