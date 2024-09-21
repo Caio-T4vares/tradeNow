@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:trade_now/app/model/address.dart';
 import 'package:trade_now/app/model/product.dart';
 
 class AnnouncementController extends GetxController {
@@ -17,17 +18,26 @@ class AnnouncementController extends GetxController {
   TextEditingController descriptionController = TextEditingController();
   TextEditingController priceController = TextEditingController();
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   Rx<String> selectedCategory = 'Eletrônicos'.obs;
   Rx<String> selectedCondition = 'Novo'.obs;
 
   RxList<Product> userProducts = <Product>[].obs;
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseStorage _storage = FirebaseStorage.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   
   final ImagePicker _picker = ImagePicker();
   RxList<File> selectedImages = <File>[].obs;
+
+  RxList<Address> addresses = <Address>[].obs;
+  Rx<Address?> selectedAddress = Rx<Address?>(null);
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchAddresses();
+  }
 
   Future<void> salvarAnuncio() async {
     try {
@@ -46,6 +56,7 @@ class AnnouncementController extends GetxController {
           condition: selectedCondition.value,
           category: selectedCategory.value,
           imgsUrl: imageUrls,
+          addressId: selectedAddress.value?.id
         );
 
         await productRef.set({
@@ -56,7 +67,8 @@ class AnnouncementController extends GetxController {
           'category': product.category,
           'price': product.price,
           'imgUrls': product.imgsUrl,
-          'userId': user.uid
+          'userId': user.uid,
+          'addressId': product.addressId
         });
 
         Get.snackbar("Sucesso", "Anúncio salvo com sucesso!");
@@ -182,6 +194,40 @@ class AnnouncementController extends GetxController {
     }
     catch(e) {
       Get.snackbar("Erro", "Erro ao buscar anúncios: $e");
+    }
+  }
+
+  Future<void> fetchAddresses() async {
+    try {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        QuerySnapshot snapshot = await _firestore
+            .collection('addresses')
+            .where('userId', isEqualTo: user.uid)
+            .get();
+
+        List<Address> fetchedAddresses = snapshot.docs.map((doc) {
+          return Address(
+            id: doc.id,
+            estado: doc['estado'],
+            cidade: doc['cidade'],
+            rua: doc['rua'],
+            bairro: doc['bairro'],
+            userId: doc['userId'],
+            isSelected: doc['isSelected']
+          );
+        }).toList();
+
+        addresses.value = fetchedAddresses;
+
+        selectedAddress.value = addresses.firstWhere(
+          (address) => address.isSelected,
+          orElse: () => addresses.first,
+        );
+      }
+    }
+    catch(e) {
+      Get.snackbar("Erro", "Erro ao buscar endereços: $e");
     }
   }
 }

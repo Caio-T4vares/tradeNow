@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trade_now/app/controllers/announcement_controller.dart';
+import 'package:trade_now/app/model/address.dart';
 import 'package:trade_now/app/ui/components/app_bar.dart';
 
 import '../../core/constants/color_constants.dart';
@@ -93,6 +94,31 @@ class AnnouncementPage extends StatelessWidget {
                   border: OutlineInputBorder(),
                 ),
               ),
+              const SizedBox(height: 16),
+              Obx(() {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text('Endereço', style: TextStyle(fontSize: 16),),
+                    DropdownButton<Address>(
+                      value: controller.selectedAddress.value,
+                      hint: const Text('Selecione um endereço'),
+                      onChanged: (value) {
+                        controller.selectedAddress.value = value!;
+                        print("PRINT DO ENDEREÇO: ${controller.selectedAddress.value!.id}");
+                      },
+                      items: controller.addresses.map((Address address) {
+                        return DropdownMenuItem(
+                          value: address,
+                          child: Text(
+                            '${address.rua}'
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                );
+              }),
               const SizedBox(height: 16),
               Obx(() {
                 return Column(

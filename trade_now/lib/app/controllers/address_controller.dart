@@ -29,7 +29,8 @@ class AddressController extends GetxController {
       String? uid = _auth.currentUser?.uid;
       if (uid == null) return;
 
-      await _firestore.collection('users').doc(uid).collection('addresses').add({
+      await _firestore.collection('addresses').add({
+        'userId': uid,
         'estado': state,
         'cidade': city,
         'rua': street,
@@ -49,9 +50,8 @@ class AddressController extends GetxController {
       if (uid == null) return;
 
       QuerySnapshot snapshot = await _firestore
-          .collection('users')
-          .doc(uid)
           .collection('addresses')
+          .where('userId', isEqualTo: uid)
           .get();
 
       addresses.value = snapshot.docs
@@ -61,10 +61,11 @@ class AddressController extends GetxController {
                 rua: doc['rua'],
                 bairro: doc['bairro'],
                 estado: doc['estado'],
+                userId: doc['userId'],
                 isSelected: doc['isSelected']
               ))
           .toList();
-      
+
       for (var address in addresses) {
         if(address.isSelected) {
           selectedAddress.value = address.id!;
@@ -85,12 +86,14 @@ class AddressController extends GetxController {
       });
 
       if(selectedAddress.value != '') {
-        await _firestore.collection('users').doc(uid).collection('addresses').doc(selectedAddress.value)
+        // Remover seleção do endereço anterior
+        await _firestore.collection('addresses').doc(selectedAddress.value)
           .update({
             'isSelected': false,
           });
 
-          await _firestore.collection('users').doc(uid).collection('addresses').doc(addressId)
+        // Definir novo endereço como selecionado
+        await _firestore.collection('addresses').doc(addressId)
           .update({
             'isSelected': true,
           });
@@ -112,8 +115,6 @@ class AddressController extends GetxController {
 
       if (defaultAddressId != null) {
         DocumentSnapshot addressDoc = await _firestore
-            .collection('users')
-            .doc(uid)
             .collection('addresses')
             .doc(defaultAddressId)
             .get();
@@ -124,7 +125,8 @@ class AddressController extends GetxController {
             cidade: addressDoc['cidade'],
             rua: addressDoc['rua'],
             bairro: addressDoc['bairro'],
-            estado: addressDoc['estado']
+            estado: addressDoc['estado'],
+            userId: addressDoc['userId']
           );
         }
       }

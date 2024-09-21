@@ -7,8 +7,10 @@ class Product {
   String? condition;
   String? category;
   String? userId;
+  String? addressId;
   Product({
     this.userId,
+    this.addressId,
     this.id,
     required this.imgsUrl,
     this.price,

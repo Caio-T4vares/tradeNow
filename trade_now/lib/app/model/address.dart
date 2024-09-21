@@ -1,10 +1,10 @@
-
 class Address {
   String? id;
   String? estado;
   String? cidade;
   String? rua;
   String? bairro;
+  String? userId;
   bool isSelected;
 
   Address({
@@ -13,6 +13,31 @@ class Address {
     this.cidade,
     this.rua,
     this.bairro,
+    this.userId,
     this.isSelected = false
   });
+
+  factory Address.fromJson(Map<String, dynamic> json) {
+    return Address(
+      id: json['id'],
+      estado: json['estado'],
+      cidade: json['cidade'],
+      rua: json['rua'],
+      bairro: json['bairro'],
+      userId: json['userId'],
+      isSelected: json['isSelected'] ?? false,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'estado': estado,
+      'cidade': cidade,
+      'rua': rua,
+      'bairro': bairro,
+      'userId': userId,
+      'isSelected': isSelected,
+    };
+  }
 }
