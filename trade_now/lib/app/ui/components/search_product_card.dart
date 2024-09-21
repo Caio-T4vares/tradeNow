@@ -12,7 +12,7 @@ class SearchProductCard extends StatelessWidget {
       shape: Border.all(color: Colors.black),
       onTap: () => Get.toNamed("/details"),
       leading: Image.network(
-        produto.imgsUrl.first,
+        produto.imgsUrl!.first,
         fit: BoxFit.fill,
       ),
       title: SizedBox(

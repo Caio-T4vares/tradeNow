@@ -36,7 +36,7 @@ class ProductDetailsPage extends StatelessWidget {
               child: Column(
                 children: [
                   CarouselSlider(
-                      items: controller.product.value.imgsUrl
+                      items: controller.product.value.imgsUrl!
                           .map((item) => ClipRRect(
                                 child: Image.network(item,
                                     fit: BoxFit.cover, width: screenWidth),
@@ -123,7 +123,7 @@ class ProductDetailsPage extends StatelessWidget {
                         return TextButton(
                             onPressed: () => Get.toNamed("/details"),
                             child: ProductCard(
-                                imgsUrl: prod.imgsUrl,
+                                imgsUrl: prod.imgsUrl!,
                                 name: prod.name!,
                                 price: prod.price!));
                       },
