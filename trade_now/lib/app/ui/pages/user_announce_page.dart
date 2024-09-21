@@ -34,6 +34,7 @@ class UserAnnouncePage extends StatelessWidget {
             itemCount: controller.userProducts.length,
             itemBuilder: (context, index) {
               final product = controller.userProducts[index];
+              final address = controller.productAddress[product.addressId];
 
               return Container(
                 margin: const EdgeInsets.symmetric(vertical: 8),
@@ -69,6 +70,11 @@ class UserAnnouncePage extends StatelessWidget {
                           Text(
                             product.name ?? 'Nome do Produto',
                             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 4,),
+                          Text(
+                            '${address!.cidade}, ${address.estado}',
+                            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 4,),
                           Text(
