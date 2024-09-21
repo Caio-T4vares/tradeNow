@@ -1,8 +1,6 @@
-import 'dart:convert';
-
 class Product {
   String? id;
-  List<String> imgsUrl;
+  List<String>? imgsUrl;
   double? price;
   String? name;
   String? description;
@@ -30,6 +28,7 @@ class Product {
   }
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       "imgsUrl": imgsUrl,
       "price": price,
       "name": name,

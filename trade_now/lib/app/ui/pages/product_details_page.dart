@@ -35,7 +35,7 @@ class ProductDetailsPage extends StatelessWidget {
                   CarouselSlider(
                       items: controller.product == null
                           ? []
-                          : controller.product.value.imgsUrl.map<Widget>((img) {
+                          : controller.product.value.imgsUrl!.map<Widget>((img) {
                               return CachedNetworkImage(
                                 imageUrl: img,
                                 fit: BoxFit.fill,
