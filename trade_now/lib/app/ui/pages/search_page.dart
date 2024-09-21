@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:trade_now/app/controllers/search_controller.dart';
 import 'package:trade_now/app/core/constants/color_constants.dart';
 import 'package:trade_now/app/model/product.dart';
+import 'package:trade_now/app/ui/components/app_bar.dart';
 import 'package:trade_now/app/ui/components/navigation_bar.dart';
 import 'package:trade_now/app/ui/components/search_product_card.dart';
 
@@ -17,22 +18,7 @@ class SearchPage extends StatelessWidget {
     List<String> categorias = ["", "Eletrônicos", "Móveis", "Livros"];
     final controller = Get.put(SearchPageController());
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Get.toNamed("/home");
-          },
-          icon: const Icon(Icons.arrow_back),
-        ),
-        title: const Text(
-          "Busca",
-          style: TextStyle(
-              color: lightColor, fontWeight: FontWeight.bold, fontSize: 36),
-        ),
-        centerTitle: true,
-        toolbarHeight: 65,
-        backgroundColor: bgColor,
-      ),
+      appBar: const TopBar(nomePag: "Buscar"),
       body: SizedBox(
         height: screenHeight,
         width: screenWidth,

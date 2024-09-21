@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:trade_now/app/controllers/product_details_controller.dart';
 import 'package:trade_now/app/core/constants/color_constants.dart';
 import 'package:trade_now/app/model/product.dart';
+import 'package:trade_now/app/ui/components/app_bar.dart';
 import 'package:trade_now/app/ui/components/product_card.dart';
 
 class ProductDetailsPage extends StatelessWidget {
@@ -16,27 +17,12 @@ class ProductDetailsPage extends StatelessWidget {
     var screenHeight = Get.mediaQuery.size.height;
     final controller = Get.put(ProductDetailsController());
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Get.toNamed("/home");
-            },
-            icon: const Icon(Icons.arrow_back),
-          ),
-          title: const Text(
-            "Anúncio",
-            style: TextStyle(
-                color: lightColor, fontWeight: FontWeight.bold, fontSize: 36),
-          ),
-          centerTitle: true,
-          toolbarHeight: 65,
-          backgroundColor: bgColor,
-        ),
+        appBar: const TopBar(nomePag: "Anúncio"),
         body: Obx(() => SingleChildScrollView(
               child: Column(
                 children: [
                   CarouselSlider(
-                      items: controller.product.value.imgsUrl
+                      items: controller.product.value.imgsUrl!
                           .map((item) => ClipRRect(
                                 child: Image.network(item,
                                     fit: BoxFit.cover, width: screenWidth),
@@ -148,14 +134,15 @@ class ProductDetailsPage extends StatelessWidget {
                           : controller.productsSameCategory.value.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext build, int index) {
-                        Product prod =
+                        Product product =
                             controller.productsSameCategory.value[index];
                         return TextButton(
-                            onPressed: () => Get.toNamed("/details"),
+                            onPressed: () =>
+                                Get.toNamed("/details", arguments: product),
                             child: ProductCard(
-                                imgsUrl: prod.imgsUrl,
-                                name: prod.name!,
-                                price: prod.price!));
+                                imgsUrl: product.imgsUrl!,
+                                name: product.name!,
+                                price: product.price!));
                       },
                     ),
                   ),

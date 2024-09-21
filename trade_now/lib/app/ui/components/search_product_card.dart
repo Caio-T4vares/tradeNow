@@ -10,12 +10,11 @@ class SearchProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       shape: Border.all(color: Colors.black),
-      onTap: () => Get.toNamed("/details"),
+      onTap: () => Get.toNamed("/details", arguments: produto),
       leading: SizedBox(
-        height: double.infinity,
         width: 80,
         child: Image.network(
-          produto.imgsUrl.first,
+          produto.imgsUrl!.first,
           fit: BoxFit.fill,
         ),
       ),
