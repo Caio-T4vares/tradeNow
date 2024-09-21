@@ -151,7 +151,7 @@ class PerfilPage extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        //TODO Levar para tela de anuncios
+                        Get.toNamed('/userAnnouncement');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,

@@ -20,6 +20,8 @@ class AnnouncementController extends GetxController {
   Rx<String> selectedCategory = 'Eletrônicos'.obs;
   Rx<String> selectedCondition = 'Novo'.obs;
 
+  RxList<Product> userProducts = <Product>[].obs;
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -150,5 +152,36 @@ class AnnouncementController extends GetxController {
     );
 
     return result;
+  }
+
+  Future<void> getUserProducts() async {
+    try {
+      User? user = _auth.currentUser;
+      if(user != null) {
+        QuerySnapshot snapshot = await _firestore
+            .collection('products')
+            .where('userId', isEqualTo: user.uid)
+            .get();
+
+        List<Product> products = snapshot.docs.map((doc) {
+          return Product(
+            name: doc['name'],
+            description: doc['description'],
+            price: doc['price'].toDouble(),
+            condition: doc['condition'],
+            category: doc['category'],
+            imgsUrl: List<String>.from(doc['imgUrls'] ?? []),
+          );
+        }).toList();
+
+        userProducts.value = products;
+      }
+      else {
+        Get.snackbar("Erro", "Usuário não autenticado.");
+      }
+    }
+    catch(e) {
+      Get.snackbar("Erro", "Erro ao buscar anúncios: $e");
+    }
   }
 }

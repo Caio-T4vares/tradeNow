@@ -7,6 +7,7 @@ import "package:trade_now/app/ui/pages/perfil_page.dart";
 import "package:trade_now/app/ui/pages/product_details_page.dart";
 import "package:trade_now/app/ui/pages/register_page.dart";
 import "package:trade_now/app/ui/pages/search_page.dart";
+import "package:trade_now/app/ui/pages/user_announce_page.dart";
 part "./app_routes.dart";
 
 class AppPages {
@@ -18,6 +19,7 @@ class AppPages {
     GetPage(name: Routes.perfil, page: () => const PerfilPage()),
     GetPage(name: Routes.search, page: () => const SearchPage()),
     GetPage(name: Routes.details, page: () => const ProductDetailsPage()),
-    GetPage(name: Routes.address, page: () => const AddressPage())
+    GetPage(name: Routes.address, page: () => const AddressPage()),
+    GetPage(name: Routes.userAnnouncement, page: () => const UserAnnouncePage())
   ];
 }

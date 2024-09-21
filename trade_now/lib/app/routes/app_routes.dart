@@ -9,4 +9,5 @@ abstract class Routes {
   static const search = "/search";
   static const details = "/details";
   static const address = "/address";
+  static const userAnnouncement = "/userAnnouncement";
 }
