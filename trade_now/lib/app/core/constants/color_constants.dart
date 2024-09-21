@@ -4,3 +4,4 @@ import 'package:flutter/material.dart';
 const bgColor = Color(0xff7DD3FC);
 const darkerColor = Color(0xff38BDF8);
 const lightColor = Color(0xffE0F2FE);
+const buttomColor = Color(0xffFF7A00);

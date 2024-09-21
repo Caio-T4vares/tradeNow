@@ -6,8 +6,9 @@ class Product {
   String? description;
   String? condition;
   String? category;
-
+  String? userId;
   Product({
+    this.userId,
     this.id,
     required this.imgsUrl,
     this.price,
@@ -18,7 +19,9 @@ class Product {
   });
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      imgsUrl: List<String>.from(json['imgsUrl']),
+      id: json["id"],
+      userId: json["userId"],
+      imgsUrl: List<String>.from(json['imgUrls']),
       price: json['price']?.toDouble(),
       name: json['name'],
       description: json['description'],

@@ -13,6 +13,7 @@ class ProductDetailsController extends GetxController {
     product.value = List.from(await _firestoreService.getAllProducts()).first;
     productsSameCategory.value = List.from(
         await _firestoreService.getProductsByCategory(product.value.category!));
+    productsSameCategory.removeWhere((el) => el.name == product.value.name);
     product.refresh();
     productsSameCategory.refresh();
   }

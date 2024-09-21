@@ -18,16 +18,27 @@ class ProductCard extends StatelessWidget {
     return Card(
       child: Column(
         children: [
-          Image.network(
-            fit: BoxFit.fill,
-            imgsUrl.first,
+          SizedBox(
+            height: 80,
+            width: screenWidth * 0.3,
+            child: Image.network(
+              fit: BoxFit.fill,
+              imgsUrl.first,
+            ),
           ),
           const SizedBox(
             height: 5,
           ),
-          Text(
-            name,
-            style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+          SizedBox(
+            width: screenWidth * 0.3,
+            child: Text(
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              name,
+              style:
+                  const TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
+            ),
           ),
           Text("R\$ ${price.toStringAsFixed(2)}"),
         ],
