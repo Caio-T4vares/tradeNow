@@ -11,27 +11,27 @@ class NavBar extends StatelessWidget {
     final controller = Get.put(NavigationBarController());
 
     return Obx(() => NavigationBar(
-      selectedIndex: controller.selectedIndex.value,
-      onDestinationSelected: controller.onItemTapped,
-      backgroundColor: darkerColor,
-      destinations: const [
-        NavigationDestination(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        NavigationDestination(
-          icon: Icon(Icons.search),
-          label: 'Search',
-        ),
-        NavigationDestination(
-          icon: Icon(Icons.add_circle),
-          label: 'Annoucement',
-        ),
-        NavigationDestination(
-          icon: Icon(Icons.person),
-          label: 'Perfil',
-        ),
-      ],
-    ));
+          selectedIndex: controller.selectedIndex.value,
+          onDestinationSelected: controller.onItemTapped,
+          backgroundColor: darkerColor,
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.search),
+              label: 'Search',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.add_circle),
+              label: 'Annoucement',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.person),
+              label: 'Perfil',
+            ),
+          ],
+        ));
   }
 }

@@ -23,4 +23,21 @@ class FirestoreService extends GetxService {
     }
     return allProducts;
   }
+
+  Future<List<Product>> getProductsByCategory(String category) async {
+    List<Product> allProducts = [];
+
+    QuerySnapshot querySnapshot = await _firestore
+        .collection("products")
+        .where("category", isEqualTo: category)
+        .get();
+
+    for (DocumentSnapshot item in querySnapshot.docs) {
+      Map<String, dynamic>? map = item.data() as Map<String, dynamic>?;
+      Product product = Product.fromJson(map!);
+      product.id = item.id;
+      allProducts.add(product);
+    }
+    return allProducts;
+  }
 }

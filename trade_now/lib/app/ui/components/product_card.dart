@@ -18,15 +18,27 @@ class ProductCard extends StatelessWidget {
     return Card(
       child: Column(
         children: [
-          Image.network(
+          SizedBox(
+            height: 80,
+            width: screenWidth * 0.3,
+            child: Image.network(
               fit: BoxFit.fill,
-              "https://static.wikia.nocookie.net/bleach/images/e/e4/Ichigo_Kurosaki_TYBW.png/revision/latest?cb=20231002190352&path-prefix=pt"),
+              imgsUrl.first,
+            ),
+          ),
           const SizedBox(
             height: 5,
           ),
-          Text(
-            name,
-            style: const TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
+          SizedBox(
+            width: screenWidth * 0.3,
+            child: Text(
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              name,
+              style:
+                  const TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
+            ),
           ),
           Text("R\$ ${price.toStringAsFixed(2)}"),
         ],
