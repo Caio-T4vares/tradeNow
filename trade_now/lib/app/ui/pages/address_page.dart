@@ -5,6 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:trade_now/app/controllers/address_controller.dart';
 import 'package:trade_now/app/core/services/location_service.dart';
+import 'package:trade_now/app/ui/components/app_bar.dart';
 
 import '../../core/constants/color_constants.dart';
 
@@ -17,25 +18,13 @@ class AddressPage extends StatelessWidget {
     LocationService locationService = LocationService();
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Endereços',
-          style: TextStyle(
-            color: Colors.white, 
-            fontWeight: FontWeight.bold, 
-            fontSize: 28
-          ),
-        ),
-        centerTitle: true,
-        toolbarHeight: 80,
-        backgroundColor: darkerColor
-      ),
+      appBar: const TopBar(nomePag: 'Endereços'),
       body: ListView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: green5,
               borderRadius: BorderRadius.circular(6),
               boxShadow: [
                 BoxShadow(
@@ -48,7 +37,7 @@ class AddressPage extends StatelessWidget {
             child: ListTile(
               title: const Text(
                 'Cadastrar novo endereço',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(fontWeight: FontWeight.bold, color: green6),
               ),
               onTap: () {
                 _showAddressModal(context, controller, locationService);
@@ -58,7 +47,7 @@ class AddressPage extends StatelessWidget {
           const SizedBox(height: 16,),
           Obx(() {
             if(controller.addresses.isEmpty) {
-              return const Center(child: Text('Nenhum Endereço Cadastrado'),);
+              return const Center(child: Text('Nenhum Endereço Cadastrado', style: TextStyle(color: green5),),);
             } 
 
             return Column(
@@ -66,7 +55,7 @@ class AddressPage extends StatelessWidget {
                 return Container(
                   margin: const EdgeInsets.only(bottom: 16.0),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: green5,
                     borderRadius: BorderRadius.circular(8),
                     boxShadow: [
                       BoxShadow(
@@ -79,13 +68,13 @@ class AddressPage extends StatelessWidget {
                   child: ListTile(
                     title: Text(
                       address.rua ?? '', // Exemplo de campo do endereço
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold, color: green4),
                     ),
-                    subtitle: Text('${address.cidade}, ${address.bairro}'),
+                    subtitle: Text('${address.cidade}, ${address.bairro}', style: const TextStyle(color: green6),),
                     trailing: controller.selectedAddress.value == address.id
                       ? const Icon(
                         Icons.check_circle,
-                        color: Colors.green,
+                        color: green4,
                         size: 24,
                       )
                       : null,
@@ -99,6 +88,7 @@ class AddressPage extends StatelessWidget {
           }),
         ],
       ),
+      backgroundColor: green6,
     );
   }
 

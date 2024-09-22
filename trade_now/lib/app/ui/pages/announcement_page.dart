@@ -168,7 +168,7 @@ class AnnouncementPage extends StatelessWidget {
                   ],
                 );
               }),
-              const SizedBox(height: 16),
+              const SizedBox(height: 24),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
@@ -176,13 +176,13 @@ class AnnouncementPage extends StatelessWidget {
                     Get.back();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: buttomColor,
+                    backgroundColor: green4,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 40, vertical: 15),
                   ),
                   child: const Text(
-                    'Salvar',
-                    style: TextStyle(color: Colors.black, fontSize: 18),
+                    'Publicar Anúncio',
+                    style: TextStyle(color: green6, fontSize: 18),
                   ),
                 ),
               ),
@@ -190,6 +190,7 @@ class AnnouncementPage extends StatelessWidget {
           ),
         ),
       ),
+      backgroundColor: green6,
     );
   }
 }

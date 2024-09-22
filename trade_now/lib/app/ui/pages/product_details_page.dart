@@ -1,12 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trade_now/app/controllers/product_details_controller.dart';
 import 'package:trade_now/app/core/constants/color_constants.dart';
-import 'package:trade_now/app/model/product.dart';
 import 'package:trade_now/app/ui/components/app_bar.dart';
-import 'package:trade_now/app/ui/components/product_card.dart';
+import 'package:trade_now/app/ui/components/home_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProductDetailsPage extends StatelessWidget {
@@ -15,7 +13,6 @@ class ProductDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenWidth = Get.mediaQuery.size.width;
-    var screenHeight = Get.mediaQuery.size.height;
     final controller = Get.put(ProductDetailsController());
     return Scaffold(
         appBar: const TopBar(nomePag: "Anúncio"),
@@ -133,31 +130,17 @@ class ProductDetailsPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 200,
-                    child: ListView.builder(
-                      itemCount: controller.productsSameCategory.length > 10
-                          ? 10
-                          : controller.productsSameCategory.value.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (BuildContext build, int index) {
-                        Product product =
-                            controller.productsSameCategory.value[index];
-                        return TextButton(
-                            onPressed: () {
-                              Get.delete<ProductDetailsController>();
-                              Get.offAndToNamed("/details", arguments: product);
-                            },
-                            child: ProductCard(
-                                imgsUrl: product.imgsUrl!,
-                                name: product.name!,
-                                price: product.price!));
-                      },
-                    ),
+                  HomeCard(
+                    category: controller.product.value.category ?? '', 
+                    products: controller.productsSameCategory,
+                    comingFrom: 1,
                   ),
                 ],
               ),
-            )));
+            ),
+          ),
+          backgroundColor: green6,
+        );
   }
 
   buildCarouselIndicator(var controller) {

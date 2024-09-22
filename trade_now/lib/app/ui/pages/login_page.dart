@@ -17,11 +17,11 @@ class LoginPage extends StatelessWidget {
         title: const Text(
           "Trade Now",
           style: TextStyle(
-              color: lightColor, fontWeight: FontWeight.bold, fontSize: 36),
+              color: green6, fontWeight: FontWeight.bold, fontSize: 36),
         ),
         centerTitle: true,
         toolbarHeight: 80,
-        backgroundColor: bgColor,
+        backgroundColor: green4,
       ),
       body: SingleChildScrollView(
         child: Align(
@@ -30,8 +30,8 @@ class LoginPage extends StatelessWidget {
             margin: const EdgeInsets.only(top: 40),
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
             decoration: BoxDecoration(
-                border: Border.all(color: lightColor, width: 1.0),
-                color: darkerColor,
+                border: Border.all(color: green6, width: 1.0),
+                color: green4,
                 borderRadius: BorderRadius.circular(4)),
             width: screenWidth * 0.8,
             height: screenHeight * 0.5,
@@ -45,13 +45,13 @@ class LoginPage extends StatelessWidget {
                       validator: (email) => controller.validateEmail(email),
                       decoration: const InputDecoration(
                           filled: true,
-                          fillColor: lightColor,
+                          fillColor: green5,
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                           ),
-                          label: Text("Email"),
+                          label: Text("Email", style: TextStyle(color: green6),),
                           hintText: "Digite o seu email",
-                          suffixIcon: Icon(Icons.email)),
+                          suffixIcon: Icon(Icons.email, color: green6,)),
                     ),
                     const SizedBox(
                       height: 20,
@@ -62,13 +62,13 @@ class LoginPage extends StatelessWidget {
                       obscureText: true,
                       decoration: const InputDecoration(
                           filled: true,
-                          fillColor: lightColor,
+                          fillColor: green5,
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                           ),
-                          label: Text("Senha"),
+                          label: Text("Senha", style: TextStyle(color: green6),),
                           hintText: "Digite a sua senha",
-                          suffixIcon: Icon(Icons.password)),
+                          suffixIcon: Icon(Icons.password, color: green6,)),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -80,7 +80,7 @@ class LoginPage extends StatelessWidget {
                             child: const Text(
                               "Não tenho conta",
                               style: TextStyle(
-                                  color: lightColor,
+                                  color: green6,
                                   fontWeight: FontWeight.bold),
                             )),
                       ],
@@ -93,15 +93,15 @@ class LoginPage extends StatelessWidget {
                       style: ButtonStyle(
                           fixedSize:
                               const WidgetStatePropertyAll(Size(160, 20)),
-                          backgroundColor: WidgetStateProperty.all(bgColor)),
-                      child: const Text("Login"),
+                          backgroundColor: WidgetStateProperty.all(green3)),
+                      child: const Text("Login", style: TextStyle(color: green6),),
                     )
                   ],
                 )),
           ),
         ),
       ),
-      backgroundColor: bgColor,
+      backgroundColor: green6,
     );
   }
 }

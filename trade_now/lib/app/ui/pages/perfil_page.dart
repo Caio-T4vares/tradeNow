@@ -109,24 +109,6 @@ class PerfilPage extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        controller.salvarDados();
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: buttomColor,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 40, vertical: 15)),
-                      child: const Text(
-                        'Salvar',
-                        style: TextStyle(color: Colors.black, fontSize: 18),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
@@ -134,7 +116,7 @@ class PerfilPage extends StatelessWidget {
                         Get.toNamed('/address');
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
+                        backgroundColor: green5,
                         shadowColor: Colors.grey,
                         elevation: 5,
                         side: BorderSide.none,
@@ -150,7 +132,7 @@ class PerfilPage extends StatelessWidget {
                           Text(
                             'Endereços',
                             style: TextStyle(
-                              color: Colors.black,
+                              color: green6,
                               fontSize: 16,
                             ),
                           ),
@@ -173,7 +155,7 @@ class PerfilPage extends StatelessWidget {
                         Get.toNamed('/userAnnouncement');
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
+                        backgroundColor: green5,
                         shadowColor: Colors.grey,
                         elevation: 5,
                         side: BorderSide.none,
@@ -189,7 +171,7 @@ class PerfilPage extends StatelessWidget {
                           Text(
                             'Meus Anúncios',
                             style: TextStyle(
-                              color: Colors.black,
+                              color: green6,
                               fontSize: 16,
                             ),
                           ),
@@ -203,6 +185,24 @@ class PerfilPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
+                    height: 30,
+                  ),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        controller.salvarDados();
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: green4,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 15)),
+                      child: const Text(
+                        'Salvar',
+                        style: TextStyle(color: green6, fontSize: 18),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
                     height: 20,
                   ),
                 ],
@@ -211,6 +211,7 @@ class PerfilPage extends StatelessWidget {
           ],
         ),
       ),
+      backgroundColor: green6,
       bottomNavigationBar: const NavBar(),
     );
   }

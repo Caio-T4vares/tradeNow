@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:trade_now/app/model/address.dart';
 import 'package:trade_now/app/model/product.dart';
 
 class FirestoreService extends GetxService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // Exemplo de método para adicionar dados
   Future<void> add(String collection, Map<String, dynamic> data) {
@@ -115,5 +117,33 @@ class FirestoreService extends GetxService {
       print("Error getting contato by ID: $e");
       rethrow;
     }
+  }
+
+  Future<bool> isUserDataOk() async {
+    try {
+      User? user = _auth.currentUser;
+      if(user != null) {
+        DocumentSnapshot userDoc = await _firestore.collection("users").doc(user.uid).get();
+
+        if(userDoc.exists) {
+          Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+
+          List<String> requiredFields = ['nome', 'cpf', 'contato', 'defaultAddressId'];
+
+          for(String field in requiredFields) {
+            if(userData[field] == null || userData[field].toString().isEmpty) {
+              return false;
+            }
+          }
+          
+          return true;
+        }
+      }
+    }
+    catch(e) {
+      print('Erro ao verificar os dados do usuário: $e');
+      return false;
+    }
+    return false;
   }
 }

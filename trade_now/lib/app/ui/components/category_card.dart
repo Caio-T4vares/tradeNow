@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trade_now/app/core/constants/color_constants.dart';
 
 class CategoryCard extends StatelessWidget {
   final IconData icon;
@@ -17,7 +18,7 @@ class CategoryCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        color: Colors.blue[200],
+        color: green5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 5,
         child: Column(
@@ -26,7 +27,7 @@ class CategoryCard extends StatelessWidget {
             Icon(
               icon,
               size: 50,
-              color: Colors.black,
+              color: green6,
             ),
             const SizedBox(height: 10),
             Text(

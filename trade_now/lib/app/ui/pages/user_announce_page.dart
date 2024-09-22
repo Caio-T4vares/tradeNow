@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trade_now/app/controllers/announcement_controller.dart';
+import 'package:trade_now/app/ui/components/app_bar.dart';
 import 'package:trade_now/app/ui/components/search_product_card.dart';
 
 import '../../core/constants/color_constants.dart';
@@ -14,16 +15,7 @@ class UserAnnouncePage extends StatelessWidget {
     controller.getUserProducts();
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Meus Anúncios",
-          style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 28),
-        ),
-        centerTitle: true,
-        toolbarHeight: 80,
-        backgroundColor: darkerColor,
-      ),
+      appBar: const TopBar(nomePag: 'Meus Anúncios'),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Obx(() {
@@ -37,6 +29,7 @@ class UserAnnouncePage extends StatelessWidget {
           );
         }),
       ),
+      backgroundColor: green6,
     );
   }
 }

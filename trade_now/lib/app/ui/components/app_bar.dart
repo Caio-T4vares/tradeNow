@@ -13,16 +13,16 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
         onPressed: () {
           Get.back();
         },
-        icon: const Icon(Icons.arrow_back),
+        icon: const Icon(Icons.arrow_back, color: green5,),
       ),
       title: Text(
         nomePag,
         style: const TextStyle(
-            color: lightColor, fontWeight: FontWeight.bold, fontSize: 26),
+            color: green6, fontWeight: FontWeight.bold, fontSize: 26),
       ),
       centerTitle: true,
       toolbarHeight: 65,
-      backgroundColor: darkerColor,
+      backgroundColor: green4,
     );
   }
 

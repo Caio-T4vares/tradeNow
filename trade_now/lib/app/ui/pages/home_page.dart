@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trade_now/app/controllers/home_controller.dart';
+import 'package:trade_now/app/core/constants/color_constants.dart';
 import 'package:trade_now/app/ui/components/app_bar.dart';
 import 'package:trade_now/app/ui/components/category_card.dart';
 import 'package:trade_now/app/ui/components/home_card.dart';
@@ -32,28 +33,28 @@ class HomePage extends StatelessWidget {
                     icon: Icons.phone_android,
                     label: 'Eletrônicos',
                     onTap: () {
-                      // TODO Levar para tela de pesquisa
+                      Get.toNamed('/search', arguments: 'Eletrônicos');
                     },
                   ),
                   CategoryCard(
                     icon: Icons.chair,
                     label: 'Móveis',
                     onTap: () {
-                      // TODO Levar para tela de pesquisa
+                      Get.toNamed('/search', arguments: 'Móveis');
                     },
                   ),
                   CategoryCard(
                     icon: Icons.directions_car,
                     label: 'Automóveis',
                     onTap: () {
-                      // TODO Levar para tela de pesquisa
+                      Get.toNamed('/search', arguments: 'Automóveis');
                     },
                   ),
                   CategoryCard(
                     icon: Icons.book,
                     label: 'Livros',
                     onTap: () {
-                      // TODO Levar para tela de pesquisa
+                      Get.toNamed('/search', arguments: 'Livros');
                     },
                   ),
                 ],
@@ -73,7 +74,7 @@ class HomePage extends StatelessWidget {
                 return HomeCard(
                   category: 'Eletrônicos',
                   products: filteredProducts,
-                  productAddress: controller.productAddress,
+                  comingFrom: 0,
                 );
               }),
               const SizedBox(height: 10),
@@ -90,14 +91,49 @@ class HomePage extends StatelessWidget {
                 return HomeCard(
                   category: 'Móveis',
                   products: filteredProducts,
-                  productAddress: controller.productAddress,
+                  comingFrom: 0,
+                );
+              }),
+              const SizedBox(height: 10),
+              Obx(() {
+                if (controller.productsList.isEmpty || controller.productAddress.isEmpty) {
+                  controller.updateLists();
+                  return const Text('Carregando Itens...');
+                }
+
+                final filteredProducts = controller.productsList
+                  .where((product) => product.category == 'Livros')
+                  .toList();
+
+                return HomeCard(
+                  category: 'Livros',
+                  products: filteredProducts,
+                  comingFrom: 0,
+                );
+              }),
+              const SizedBox(height: 10),
+              Obx(() {
+                if (controller.productsList.isEmpty || controller.productAddress.isEmpty) {
+                  controller.updateLists();
+                  return const Text('Carregando Itens...');
+                }
+
+                final filteredProducts = controller.productsList
+                  .where((product) => product.category == 'Automóveis')
+                  .toList();
+
+                return HomeCard(
+                  category: 'Automóveis',
+                  products: filteredProducts,
+                  comingFrom: 0,
                 );
               }),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: NavBar(),
+      backgroundColor: green6,
+      bottomNavigationBar: const NavBar(),
     );
   }
 }

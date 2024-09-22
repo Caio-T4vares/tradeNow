@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trade_now/app/controllers/search_controller.dart';
+import 'package:trade_now/app/core/constants/color_constants.dart';
 import 'package:trade_now/app/ui/components/app_bar.dart';
 import 'package:trade_now/app/ui/components/navigation_bar.dart';
 import 'package:trade_now/app/ui/components/search_product_card.dart';
@@ -88,7 +89,9 @@ class SearchPage extends StatelessWidget {
             Obx(() {
               return Text(controller.currentLocationState.value.isNotEmpty
                   ? 'Exibindo resultados em ${controller.currentLocationState.value}'
-                  : 'Localizando...');
+                  : 'Localizando...',
+                  style: const TextStyle(color: green4),
+              );
             }),
             const SizedBox(
               height: 15,
@@ -98,7 +101,7 @@ class SearchPage extends StatelessWidget {
                 if (controller.filteredList.isEmpty ||
                     controller.productAddress.isEmpty) {
                   return const Center(
-                    child: Text('Nenhum anúncio encontrado'),
+                    child: Text('Nenhum anúncio encontrado', style: TextStyle(color: green3),),
                   );
                 }
 
@@ -113,6 +116,7 @@ class SearchPage extends StatelessWidget {
           ],
         ),
       ),
+      backgroundColor: green6,
       bottomNavigationBar: const NavBar(),
     );
   }

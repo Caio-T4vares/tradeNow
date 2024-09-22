@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trade_now/app/core/constants/color_constants.dart';
 
 import '../../model/product.dart';
 import '../../model/address.dart';
@@ -27,7 +28,7 @@ class SearchProductCard extends StatelessWidget {
               margin: const EdgeInsets.symmetric(vertical: 8),
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: green5,
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
@@ -61,6 +62,7 @@ class SearchProductCard extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
+                            color: green3
                           ),
                         ),
                         const SizedBox(
@@ -71,6 +73,7 @@ class SearchProductCard extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
+                            color: green4
                           ),
                         ),
                         const SizedBox(
@@ -81,7 +84,7 @@ class SearchProductCard extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
-                            color: Colors.grey,
+                            color: green6,
                           ),
                         ),
                       ],

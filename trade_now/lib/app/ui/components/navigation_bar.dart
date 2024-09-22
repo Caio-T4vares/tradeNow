@@ -10,28 +10,38 @@ class NavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(NavigationBarController());
 
-    return Obx(() => NavigationBar(
-          selectedIndex: controller.selectedIndex.value,
-          onDestinationSelected: controller.onItemTapped,
-          backgroundColor: darkerColor,
-          destinations: const [
-            NavigationDestination(
-              icon: Icon(Icons.home),
-              label: 'Home',
+    return Obx(() => NavigationBarTheme(
+          data: NavigationBarThemeData(
+            labelTextStyle: WidgetStateProperty.all(
+              const TextStyle(
+                color: Colors.black87,
+                fontWeight: FontWeight.w500,
+              ),
             ),
-            NavigationDestination(
-              icon: Icon(Icons.search),
-              label: 'Search',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.add_circle),
-              label: 'Annoucement',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.person),
-              label: 'Perfil',
-            ),
-          ],
+          ),
+          child: NavigationBar(
+            selectedIndex: controller.selectedIndex.value,
+            onDestinationSelected: controller.onItemTapped,
+            backgroundColor: green4,
+            destinations: const [
+              NavigationDestination(
+                icon: Icon(Icons.home, color: green5),
+                label: 'Home',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.search, color: green5),
+                label: 'Search',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.add_circle, color: green5),
+                label: 'Annoucement',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.person, color: green5),
+                label: 'Perfil',
+              ),
+            ],
+          ),
         ));
   }
 }
