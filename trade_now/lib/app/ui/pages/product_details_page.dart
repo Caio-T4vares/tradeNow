@@ -7,6 +7,7 @@ import 'package:trade_now/app/core/constants/color_constants.dart';
 import 'package:trade_now/app/model/product.dart';
 import 'package:trade_now/app/ui/components/app_bar.dart';
 import 'package:trade_now/app/ui/components/product_card.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProductDetailsPage extends StatelessWidget {
   const ProductDetailsPage({super.key});
@@ -107,9 +108,15 @@ class ProductDetailsPage extends StatelessWidget {
                                   decoration: BoxDecoration(
                                       border: Border.all(color: Colors.black),
                                       borderRadius: BorderRadius.circular(8)),
-                                  child: const Center(
-                                    child: Text(
-                                      "Entrar em contato",
+                                  child: Center(
+                                    child: InkWell(
+                                      onTap: () async {
+                                        await launchUrl(
+                                            Uri.parse(controller.contactLink));
+                                      },
+                                      child: const Text(
+                                        "Entrar em contato",
+                                      ),
                                     ),
                                   ),
                                 )),
@@ -137,8 +144,10 @@ class ProductDetailsPage extends StatelessWidget {
                         Product product =
                             controller.productsSameCategory.value[index];
                         return TextButton(
-                            onPressed: () =>
-                                Get.toNamed("/details", arguments: product),
+                            onPressed: () {
+                              Get.delete<ProductDetailsController>();
+                              Get.offAndToNamed("/details", arguments: product);
+                            },
                             child: ProductCard(
                                 imgsUrl: product.imgsUrl!,
                                 name: product.name!,

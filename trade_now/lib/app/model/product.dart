@@ -21,6 +21,7 @@ class Product {
   });
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
+      addressId: json["addressId"],
       id: json["id"],
       userId: json["userId"],
       imgsUrl: List<String>.from(json['imgUrls']),
@@ -45,14 +46,13 @@ class Product {
 
   factory Product.fromMap(Map<String, dynamic> data) {
     return Product(
-      userId: data["userId"],
-      imgsUrl: List<String>.from(data['imgUrls']),
-      price: data['price']?.toDouble(),
-      name: data['name'],
-      description: data['description'],
-      condition: data['condition'],
-      category: data['category'],
-      addressId: data['addressId']
-    );
+        userId: data["userId"],
+        imgsUrl: List<String>.from(data['imgUrls']),
+        price: data['price']?.toDouble(),
+        name: data['name'],
+        description: data['description'],
+        condition: data['condition'],
+        category: data['category'],
+        addressId: data['addressId']);
   }
 }

@@ -12,6 +12,7 @@ class RegisterPage extends StatelessWidget {
     var screenHeight = Get.mediaQuery.size.height;
     final controller = Get.put(RegisterController());
     return Scaffold(
+      extendBody: true,
       appBar: AppBar(
         title: const Text(
           "Trade Now",
@@ -22,84 +23,87 @@ class RegisterPage extends StatelessWidget {
         toolbarHeight: 80,
         backgroundColor: bgColor,
       ),
-      body: Align(
-        alignment: Alignment.topCenter,
-        child: Container(
-          margin: const EdgeInsets.only(top: 40),
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
-          decoration: BoxDecoration(
-              border: Border.all(color: lightColor, width: 1.0),
-              color: darkerColor,
-              borderRadius: BorderRadius.circular(4)),
-          width: screenWidth * 0.8,
-          height: screenHeight * 0.5,
-          child: SingleChildScrollView(
-            child: Form(
-                key: controller.formKey,
-                child: Column(
-                  children: [
-                    TextFormField(
-                      controller: controller.emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (email) => controller.validateEmail(email),
-                      decoration: const InputDecoration(
-                          filled: true,
-                          fillColor: lightColor,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                          ),
-                          label: Text("Email"),
-                          hintText: "Digite o seu email",
-                          suffixIcon: Icon(Icons.email)),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      controller: controller.passwordController,
-                      validator: (senha) => controller.validatePassword(senha),
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                          filled: true,
-                          fillColor: lightColor,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                          ),
-                          label: Text("Senha"),
-                          hintText: "Digite a sua senha",
-                          suffixIcon: Icon(Icons.visibility)),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      controller: controller.confirmPasswordController,
-                      validator: (confirmPwd) =>
-                          controller.validadeConfirmPwd(confirmPwd),
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                          filled: true,
-                          fillColor: lightColor,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                          ),
-                          label: Text("Confirme a sua senha"),
-                          hintText: "Digite a sua senha novamente",
-                          suffixIcon: Icon(Icons.visibility)),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    ElevatedButton(
-                      onPressed: () => controller.handleRegister(),
-                      style: ButtonStyle(
-                          fixedSize:
-                              const WidgetStatePropertyAll(Size(160, 20)),
-                          backgroundColor: WidgetStateProperty.all(bgColor)),
-                      child: const Text("Login"),
-                    )
-                  ],
-                )),
+      body: SingleChildScrollView(
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: Container(
+            margin: const EdgeInsets.only(top: 40),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
+            decoration: BoxDecoration(
+                border: Border.all(color: lightColor, width: 1.0),
+                color: darkerColor,
+                borderRadius: BorderRadius.circular(4)),
+            width: screenWidth * 0.8,
+            height: screenHeight * 0.5,
+            child: SingleChildScrollView(
+              child: Form(
+                  key: controller.formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: controller.emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (email) => controller.validateEmail(email),
+                        decoration: const InputDecoration(
+                            filled: true,
+                            fillColor: lightColor,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                            ),
+                            label: Text("Email"),
+                            hintText: "Digite o seu email",
+                            suffixIcon: Icon(Icons.email)),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        controller: controller.passwordController,
+                        validator: (senha) =>
+                            controller.validatePassword(senha),
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                            filled: true,
+                            fillColor: lightColor,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                            ),
+                            label: Text("Senha"),
+                            hintText: "Digite a sua senha",
+                            suffixIcon: Icon(Icons.visibility)),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        controller: controller.confirmPasswordController,
+                        validator: (confirmPwd) =>
+                            controller.validadeConfirmPwd(confirmPwd),
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                            filled: true,
+                            fillColor: lightColor,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                            ),
+                            label: Text("Confirme a sua senha"),
+                            hintText: "Digite a sua senha novamente",
+                            suffixIcon: Icon(Icons.visibility)),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      ElevatedButton(
+                        onPressed: () => controller.handleRegister(),
+                        style: ButtonStyle(
+                            fixedSize:
+                                const WidgetStatePropertyAll(Size(160, 20)),
+                            backgroundColor: WidgetStateProperty.all(bgColor)),
+                        child: const Text("Login"),
+                      )
+                    ],
+                  )),
+            ),
           ),
         ),
       ),

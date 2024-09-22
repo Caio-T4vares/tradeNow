@@ -14,27 +14,31 @@ class SearchPageController extends GetxController {
   final LocationService locationService = LocationService();
   final FirestoreService _firestoreService = Get.find();
 
-  var productList = [];
-  var filteredList = [].obs;
+  RxList<Product> filteredList = <Product>[].obs;
   var categoria = "".obs;
   var currentLocationState = ''.obs;
 
-  RxList<Product> productsList = <Product>[].obs;
+  List<Product> productsList = <Product>[];
   RxMap<String?, Address> productAddress = <String, Address>{}.obs;
 
   @override
   void onInit() async {
     super.onInit();
     await _getCurrentLocationAndState();
-    productsList.value = await _firestoreService.getProductsByState(currentLocationState.value);
-    productAddress.value = await _firestoreService.fetchAllProductAddresses(productsList);
+    productsList =
+        await _firestoreService.getProductsByState(currentLocationState.value);
+    productAddress.value =
+        await _firestoreService.fetchAllProductAddresses(productsList);
+    filteredList.value = productsList.toList();
+    filteredList.refresh();
   }
 
   Future<void> _getCurrentLocationAndState() async {
     try {
       Position position = await locationService.determinePosition();
-      List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
-      
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+
       if (placemarks.isNotEmpty) {
         currentLocationState.value = placemarks.first.administrativeArea ?? '';
       } else {
@@ -44,30 +48,34 @@ class SearchPageController extends GetxController {
       Get.snackbar('Erro', 'Erro ao obter localização: $e');
     }
   }
-  
+
   void changeCategory(String? category) async {
     if (category == "") {
       categoria.value = "";
-      productList = await _firestoreService.getAllProducts();
+      productsList = await _firestoreService.getAllProducts();
     } else {
       categoria.value = category!;
-      productList = await _firestoreService.getProductsByCategory(category);
+      productsList = await _firestoreService.getProductsByCategory(category);
     }
-    filteredList.value = productList.toList();
+    filteredList.value = productsList.toList();
     filteredList.refresh();
   }
 
   void searchByName() async {
     RegExp regex = RegExp("^${searchController.text.toLowerCase()}");
-    filteredList.value = productList.where((el) {
-      if (regex.hasMatch(el.name.toLowerCase())) return true;
+    filteredList.value = productsList.where((el) {
+      if (regex.hasMatch(el.name!.toLowerCase())) return true;
       return false;
     }).toList();
     filteredList.refresh();
   }
 
   void updateLists() async {
-    productsList.value = await _firestoreService.getProductsByState(currentLocationState.value);
-    productAddress.value = await _firestoreService.fetchAllProductAddresses(productsList);
+    productsList =
+        await _firestoreService.getProductsByState(currentLocationState.value);
+    filteredList.value = productsList.toList();
+    filteredList.refresh();
+    productAddress.value =
+        await _firestoreService.fetchAllProductAddresses(filteredList);
   }
 }

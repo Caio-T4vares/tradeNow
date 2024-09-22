@@ -11,7 +11,13 @@ class SearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenWidth = Get.mediaQuery.size.width;
     var screenHeight = Get.mediaQuery.size.height;
-    List<String> categorias = ["", "Eletrônicos", "Móveis", "Livros"];
+    List<String> categorias = [
+      "",
+      "Automóveis",
+      "Eletrônicos",
+      "Móveis",
+      "Livros"
+    ];
     final controller = Get.put(SearchPageController());
     controller.updateLists();
 
@@ -80,24 +86,27 @@ class SearchPage extends StatelessWidget {
               height: 15,
             ),
             Obx(() {
-              return Text(
-                controller.currentLocationState.value.isNotEmpty
-                ? 'Exibindo resultados em ${controller.currentLocationState.value}'
-                : 'Localizando...'
-              );
+              return Text(controller.currentLocationState.value.isNotEmpty
+                  ? 'Exibindo resultados em ${controller.currentLocationState.value}'
+                  : 'Localizando...');
             }),
             const SizedBox(
               height: 15,
             ),
             Expanded(
               child: Obx(() {
-                if(controller.productsList.isEmpty || controller.productAddress.isEmpty) {
-                  return const Center(child: Text('Nenhum anúncio encontrado'),);
+                if (controller.filteredList.isEmpty ||
+                    controller.productAddress.isEmpty) {
+                  return const Center(
+                    child: Text('Nenhum anúncio encontrado'),
+                  );
                 }
 
                 return Padding(
-                  padding: EdgeInsets.all(16),
-                  child: SearchProductCard(products: controller.productsList, productAddresses: controller.productAddress),
+                  padding: const EdgeInsets.all(16),
+                  child: SearchProductCard(
+                      products: controller.filteredList,
+                      productAddresses: controller.productAddress),
                 );
               }),
             ),

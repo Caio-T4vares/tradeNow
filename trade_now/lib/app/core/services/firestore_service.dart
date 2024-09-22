@@ -18,7 +18,7 @@ class FirestoreService extends GetxService {
 
     for (DocumentSnapshot item in querySnapshot.docs) {
       Map<String, dynamic>? map = item.data() as Map<String, dynamic>?;
-      Product product = Product.fromJson(map!);
+      Product product = Product.fromMap(map!);
       product.id = item.id;
       allProducts.add(product);
     }
@@ -35,7 +35,7 @@ class FirestoreService extends GetxService {
 
     for (DocumentSnapshot item in querySnapshot.docs) {
       Map<String, dynamic>? map = item.data() as Map<String, dynamic>?;
-      Product product = Product.fromJson(map!);
+      Product product = Product.fromMap(map!);
       product.id = item.id;
       allProducts.add(product);
     }
@@ -44,21 +44,21 @@ class FirestoreService extends GetxService {
 
   Future<List<Product>> getProductsByState(String state) async {
     try {
-      QuerySnapshot productSnapshot = await _firestore.collection('products').get();
+      QuerySnapshot productSnapshot =
+          await _firestore.collection('products').get();
 
       List<Product> products = [];
-      for(var doc in productSnapshot.docs) {
+      for (var doc in productSnapshot.docs) {
         Product product = Product.fromMap(doc.data() as Map<String, dynamic>);
 
         Address address = await getAddressById(product.addressId);
 
-        if(address.estado == state) {
+        if (address.estado == state) {
           products.add(product);
         }
       }
       return products;
-    }
-    catch(e) {
+    } catch (e) {
       print("Error getting products by state: $e");
       return [];
     }
@@ -66,21 +66,24 @@ class FirestoreService extends GetxService {
 
   Future<Address> getAddressById(String? addressId) async {
     try {
-      DocumentSnapshot snapshot = await _firestore.collection('addresses').doc(addressId).get();
+      DocumentSnapshot snapshot =
+          await _firestore.collection('addresses').doc(addressId).get();
       return Address.fromMap(snapshot.data() as Map<String, dynamic>);
-    }
-    catch(e) {
+    } catch (e) {
       print("Error getting address by ID: $e");
-      throw e;
+      rethrow;
     }
   }
 
-  Future<Map<String?, Address>> fetchAllProductAddresses(List<Product> products) async {
+  Future<Map<String?, Address>> fetchAllProductAddresses(
+      List<Product> products) async {
     Map<String?, Address> productAddress = <String, Address>{};
     for (var product in products) {
-      final address = await fetchProductAddress(product.addressId);  // Chama a função async para buscar o endereço
+      final address = await fetchProductAddress(
+          product.addressId); // Chama a função async para buscar o endereço
       if (address != null) {
-        productAddress[product.addressId] = address;  // Armazena o endereço no mapa
+        productAddress[product.addressId] =
+            address; // Armazena o endereço no mapa
       }
     }
     return productAddress;
@@ -88,18 +91,29 @@ class FirestoreService extends GetxService {
 
   Future<Address?> fetchProductAddress(String? addressId) async {
     try {
-      DocumentSnapshot doc = await _firestore.collection('addresses').doc(addressId).get();
+      DocumentSnapshot doc =
+          await _firestore.collection('addresses').doc(addressId).get();
 
       if (doc.exists) {
         return Address.fromFirestore(doc);
-      } 
-      else {
+      } else {
         print('Endereço não encontrado');
         return null;
       }
     } catch (e) {
       print('Erro ao buscar o endereço: $e');
       return null;
+    }
+  }
+
+  Future<String> getContactById(String userId) async {
+    try {
+      DocumentSnapshot snapshot =
+          await _firestore.collection('users').doc(userId).get();
+      return snapshot["contato"];
+    } catch (e) {
+      print("Error getting contato by ID: $e");
+      rethrow;
     }
   }
 }
