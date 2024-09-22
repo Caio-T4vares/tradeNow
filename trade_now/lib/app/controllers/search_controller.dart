@@ -65,4 +65,9 @@ class SearchPageController extends GetxController {
     }).toList();
     filteredList.refresh();
   }
+
+  void updateLists() async {
+    productsList.value = await _firestoreService.getProductsByState(currentLocationState.value);
+    productAddress.value = await _firestoreService.fetchAllProductAddresses(productsList);
+  }
 }

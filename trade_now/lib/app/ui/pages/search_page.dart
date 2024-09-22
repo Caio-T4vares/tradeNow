@@ -13,6 +13,7 @@ class SearchPage extends StatelessWidget {
     var screenHeight = Get.mediaQuery.size.height;
     List<String> categorias = ["", "Eletrônicos", "Móveis", "Livros"];
     final controller = Get.put(SearchPageController());
+    controller.updateLists();
 
     return Scaffold(
       appBar: const TopBar(nomePag: "Buscar"),

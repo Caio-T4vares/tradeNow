@@ -105,7 +105,6 @@ class AnnouncementPage extends StatelessWidget {
                       hint: const Text('Selecione um endereço'),
                       onChanged: (value) {
                         controller.selectedAddress.value = value!;
-                        print("PRINT DO ENDEREÇO: ${controller.selectedAddress.value!.id}");
                       },
                       items: controller.addresses.map((Address address) {
                         return DropdownMenuItem(

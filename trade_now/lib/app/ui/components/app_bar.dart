@@ -18,7 +18,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         nomePag,
         style: const TextStyle(
-            color: lightColor, fontWeight: FontWeight.bold, fontSize: 36),
+            color: lightColor, fontWeight: FontWeight.bold, fontSize: 26),
       ),
       centerTitle: true,
       toolbarHeight: 65,
