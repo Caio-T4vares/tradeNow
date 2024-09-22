@@ -30,11 +30,11 @@ class NavBar extends StatelessWidget {
               ),
               NavigationDestination(
                 icon: Icon(Icons.search, color: green5),
-                label: 'Search',
+                label: 'Buscar',
               ),
               NavigationDestination(
                 icon: Icon(Icons.add_circle, color: green5),
-                label: 'Annoucement',
+                label: 'Anunciar',
               ),
               NavigationDestination(
                 icon: Icon(Icons.person, color: green5),

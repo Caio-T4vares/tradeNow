@@ -20,7 +20,7 @@ class ProductDetailsController extends GetxController {
     contactLink = await _firestoreService.getContactById(product.value.userId!);
     Address adress =
         await _firestoreService.getAddressById(product.value.addressId);
-    adressStr = "${adress.cidade}";
+    adressStr = "${adress.cidade}, ${adress.estado}";
     contactLink = "https://wa.me/55$contactLink";
     product.refresh();
     productsSameCategory.refresh();
