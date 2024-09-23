@@ -74,15 +74,6 @@ class ProductDetailsPage extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Divider(
-                        color: Colors.grey,
-                        thickness: 0.5,
-                        indent: 5,
-                        endIndent: 5,
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
                       const Text(
                         "Descrição",
                         style: TextStyle(
@@ -95,12 +86,12 @@ class ProductDetailsPage extends StatelessWidget {
                           width: screenWidth,
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey)),
+                              border: Border.all(color: green3)),
                           child: Text(
                             controller.product.value.description == null
                                 ? ""
                                 : controller.product.value.description!,
-                            style: const TextStyle(fontWeight: FontWeight.w200),
+                            style: const TextStyle(color: green4),
                           ),
                         ),
                       ),
@@ -108,26 +99,19 @@ class ProductDetailsPage extends StatelessWidget {
                         height: 20,
                       ),
                       Center(
-                        child: TextButton(
-                            onPressed: () => {},
-                            child: Container(
-                              height: 50,
-                              width: 140,
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black),
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: Center(
-                                child: TextButton(
-                                  onPressed: () async {
-                                    await launchUrl(
-                                        Uri.parse(controller.contactLink));
-                                  },
-                                  child: const Text(
-                                    "Entrar em contato",
-                                  ),
-                                ),
-                              ),
-                            )),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            await launchUrl(Uri.parse(controller.contactLink));
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: green4,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 40, vertical: 15)),
+                          child: const Text(
+                            'Entre em Contato',
+                            style: TextStyle(color: green6, fontSize: 18),
+                          ),
+                        ),
                       ),
                       const SizedBox(
                         height: 20,
