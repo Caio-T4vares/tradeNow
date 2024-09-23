@@ -13,7 +13,7 @@ class SearchPage extends StatelessWidget {
     var screenWidth = Get.mediaQuery.size.width;
     var screenHeight = Get.mediaQuery.size.height;
     List<String> categorias = [
-      "",
+      "Todos",
       "Automóveis",
       "Eletrônicos",
       "Móveis",

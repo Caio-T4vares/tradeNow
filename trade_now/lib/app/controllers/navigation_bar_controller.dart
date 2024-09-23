@@ -11,7 +11,7 @@ class NavigationBarController extends GetxController {
 
     switch(index) {
       case 0: Get.toNamed('/home'); break;
-      case 1: Get.toNamed('/search', arguments: ''); break;
+      case 1: Get.toNamed('/search', arguments: 'Todos'); break;
       case 2: await _service.isUserDataOk() ? Get.toNamed('/announcement') : Get.snackbar('Falta de Informações:', 'Preencha seus Dados no Perfil'); break;
       case 3: Get.toNamed('/perfil'); break;
     }

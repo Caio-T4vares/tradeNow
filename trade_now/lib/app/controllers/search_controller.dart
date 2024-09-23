@@ -48,8 +48,8 @@ class SearchPageController extends GetxController {
   }
 
   void changeCategory(String? category) async {
-    if (category == "") {
-      categoria.value = "";
+    if (category == "Todos") {
+      categoria.value = "Todos";
       productsList = await _firestoreService.getAllProducts();
     } else {
       categoria.value = category!;
