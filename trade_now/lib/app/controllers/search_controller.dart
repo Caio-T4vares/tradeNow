@@ -74,9 +74,10 @@ class SearchPageController extends GetxController {
     productsList =
         await _firestoreService.getProductsByState(currentLocationState.value);
     filteredList.value = productsList.toList();
-    filteredList.refresh();
     productAddress.value =
         await _firestoreService.fetchAllProductAddresses(filteredList);
+
+    filteredList.refresh();
     categoria.value = Get.arguments;
     changeCategory(categoria.value);
   }
