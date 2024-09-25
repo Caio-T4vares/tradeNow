@@ -8,19 +8,21 @@ class Product {
   String? category;
   String? userId;
   String? addressId;
-  Product({
-    this.userId,
-    this.addressId,
-    this.id,
-    required this.imgsUrl,
-    this.price,
-    this.name,
-    this.description,
-    this.condition,
-    this.category,
-  });
+  String? views;
+  Product(
+      {this.userId,
+      this.addressId,
+      this.id,
+      required this.imgsUrl,
+      this.price,
+      this.name,
+      this.description,
+      this.condition,
+      this.category,
+      this.views});
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
+      views: json["views"],
       addressId: json["addressId"],
       id: json["id"],
       userId: json["userId"],
@@ -35,6 +37,7 @@ class Product {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      "views": views,
       "imgsUrl": imgsUrl,
       "price": price,
       "name": name,
@@ -47,6 +50,7 @@ class Product {
   factory Product.fromMap(Map<String, dynamic> data) {
     return Product(
         userId: data["userId"],
+        views: data["views"],
         imgsUrl: List<String>.from(data['imgUrls']),
         price: data['price']?.toDouble(),
         name: data['name'],
