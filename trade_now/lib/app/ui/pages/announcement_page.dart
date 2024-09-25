@@ -5,7 +5,7 @@ import 'package:trade_now/app/controllers/announcement_controller.dart';
 import 'package:trade_now/app/model/address.dart';
 import 'package:trade_now/app/ui/components/app_bar.dart';
 
-import '../../core/constants/color_constants.dart';
+import '../../constants/color_constants.dart';
 
 class AnnouncementPage extends StatelessWidget {
   const AnnouncementPage({super.key});
@@ -99,7 +99,10 @@ class AnnouncementPage extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text('Endereço', style: TextStyle(fontSize: 16),),
+                    const Text(
+                      'Endereço',
+                      style: TextStyle(fontSize: 16),
+                    ),
                     DropdownButton<Address>(
                       value: controller.selectedAddress.value,
                       hint: const Text('Selecione um endereço'),
@@ -109,9 +112,7 @@ class AnnouncementPage extends StatelessWidget {
                       items: controller.addresses.map((Address address) {
                         return DropdownMenuItem(
                           value: address,
-                          child: Text(
-                            '${address.rua}'
-                          ),
+                          child: Text('${address.rua}'),
                         );
                       }).toList(),
                     ),

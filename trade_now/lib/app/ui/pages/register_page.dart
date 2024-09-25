@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trade_now/app/controllers/register_controller.dart';
-import 'package:trade_now/app/core/constants/color_constants.dart';
+import 'package:trade_now/app/constants/color_constants.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -50,9 +50,15 @@ class RegisterPage extends StatelessWidget {
                             border: OutlineInputBorder(
                               borderSide: BorderSide.none,
                             ),
-                            label: Text("Email", style: TextStyle(color: green6),),
+                            label: Text(
+                              "Email",
+                              style: TextStyle(color: green6),
+                            ),
                             hintText: "Digite o seu email",
-                            suffixIcon: Icon(Icons.email, color: green6,)),
+                            suffixIcon: Icon(
+                              Icons.email,
+                              color: green6,
+                            )),
                       ),
                       const SizedBox(
                         height: 20,
@@ -68,9 +74,15 @@ class RegisterPage extends StatelessWidget {
                             border: OutlineInputBorder(
                               borderSide: BorderSide.none,
                             ),
-                            label: Text("Senha", style: TextStyle(color: green6),),
+                            label: Text(
+                              "Senha",
+                              style: TextStyle(color: green6),
+                            ),
                             hintText: "Digite a sua senha",
-                            suffixIcon: Icon(Icons.visibility, color: green6,)),
+                            suffixIcon: Icon(
+                              Icons.visibility,
+                              color: green6,
+                            )),
                       ),
                       const SizedBox(
                         height: 20,
@@ -86,9 +98,15 @@ class RegisterPage extends StatelessWidget {
                             border: OutlineInputBorder(
                               borderSide: BorderSide.none,
                             ),
-                            label: Text("Confirme a sua senha", style: TextStyle(color: green6),),
+                            label: Text(
+                              "Confirme a sua senha",
+                              style: TextStyle(color: green6),
+                            ),
                             hintText: "Digite a sua senha novamente",
-                            suffixIcon: Icon(Icons.visibility, color: green6,)),
+                            suffixIcon: Icon(
+                              Icons.visibility,
+                              color: green6,
+                            )),
                       ),
                       const SizedBox(
                         height: 20,
@@ -99,7 +117,10 @@ class RegisterPage extends StatelessWidget {
                             fixedSize:
                                 const WidgetStatePropertyAll(Size(160, 20)),
                             backgroundColor: WidgetStateProperty.all(green3)),
-                        child: const Text("Login", style: TextStyle(color: green6),),
+                        child: const Text(
+                          "Login",
+                          style: TextStyle(color: green6),
+                        ),
                       )
                     ],
                   )),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trade_now/app/core/constants/color_constants.dart';
+import 'package:trade_now/app/constants/color_constants.dart';
 
 import '../../model/product.dart';
 import '../../model/address.dart';
@@ -60,10 +60,9 @@ class SearchProductCard extends StatelessWidget {
                         Text(
                           product.name ?? 'Nome do Produto',
                           style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: green3
-                          ),
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: green3),
                         ),
                         const SizedBox(
                           height: 4,
@@ -71,10 +70,9 @@ class SearchProductCard extends StatelessWidget {
                         Text(
                           '${address!.cidade}, ${address.estado}',
                           style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: green4
-                          ),
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: green4),
                         ),
                         const SizedBox(
                           height: 4,

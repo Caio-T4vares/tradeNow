@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trade_now/app/core/constants/color_constants.dart';
+import 'package:trade_now/app/constants/color_constants.dart';
 
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
   final String nomePag;
@@ -13,7 +13,10 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
         onPressed: () {
           Get.back();
         },
-        icon: const Icon(Icons.arrow_back, color: green5,),
+        icon: const Icon(
+          Icons.arrow_back,
+          color: green5,
+        ),
       ),
       title: Text(
         nomePag,

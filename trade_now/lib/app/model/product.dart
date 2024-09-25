@@ -8,7 +8,7 @@ class Product {
   String? category;
   String? userId;
   String? addressId;
-  String? views;
+  int? views;
   Product(
       {this.userId,
       this.addressId,
@@ -19,7 +19,7 @@ class Product {
       this.description,
       this.condition,
       this.category,
-      this.views});
+      this.views = 0});
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
       views: json["views"],
@@ -49,6 +49,7 @@ class Product {
 
   factory Product.fromMap(Map<String, dynamic> data) {
     return Product(
+        id: data["id"],
         userId: data["userId"],
         views: data["views"],
         imgsUrl: List<String>.from(data['imgUrls']),

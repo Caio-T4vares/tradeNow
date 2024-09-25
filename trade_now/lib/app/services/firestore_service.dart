@@ -7,16 +7,29 @@ import 'package:trade_now/app/model/product.dart';
 class FirestoreService extends GetxService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  // Exemplo de método para adicionar dados
+  // post
   Future<void> add(String collection, Map<String, dynamic> data) {
     return _firestore.collection(collection).add(data);
+  }
+
+  // patch / put
+  void updateProduct(Map<String, dynamic> data) async {
+    DocumentReference documentReference =
+        FirebaseFirestore.instance.collection("products").doc(data["id"]);
+    try {
+      await documentReference.update(data);
+    } catch (err) {
+      print("Erro ao atualizar um produto: $err");
+    }
   }
 
   Future<List<Product>> getAllProducts() async {
     List<Product> allProducts = [];
 
-    QuerySnapshot querySnapshot = await _firestore.collection("products").get();
+    QuerySnapshot querySnapshot = await _firestore
+        .collection("products")
+        .orderBy("views", descending: true)
+        .get();
 
     for (DocumentSnapshot item in querySnapshot.docs) {
       Map<String, dynamic>? map = item.data() as Map<String, dynamic>?;
@@ -46,8 +59,10 @@ class FirestoreService extends GetxService {
 
   Future<List<Product>> getProductsByState(String state) async {
     try {
-      QuerySnapshot productSnapshot =
-          await _firestore.collection('products').get();
+      QuerySnapshot productSnapshot = await _firestore
+          .collection('products')
+          .orderBy("views", descending: true)
+          .get();
 
       List<Product> products = [];
       for (var doc in productSnapshot.docs) {
@@ -122,25 +137,31 @@ class FirestoreService extends GetxService {
   Future<bool> isUserDataOk() async {
     try {
       User? user = _auth.currentUser;
-      if(user != null) {
-        DocumentSnapshot userDoc = await _firestore.collection("users").doc(user.uid).get();
+      if (user != null) {
+        DocumentSnapshot userDoc =
+            await _firestore.collection("users").doc(user.uid).get();
 
-        if(userDoc.exists) {
-          Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+        if (userDoc.exists) {
+          Map<String, dynamic> userData =
+              userDoc.data() as Map<String, dynamic>;
 
-          List<String> requiredFields = ['nome', 'cpf', 'contato', 'defaultAddressId'];
+          List<String> requiredFields = [
+            'nome',
+            'cpf',
+            'contato',
+            'defaultAddressId'
+          ];
 
-          for(String field in requiredFields) {
-            if(userData[field] == null || userData[field].toString().isEmpty) {
+          for (String field in requiredFields) {
+            if (userData[field] == null || userData[field].toString().isEmpty) {
               return false;
             }
           }
-          
+
           return true;
         }
       }
-    }
-    catch(e) {
+    } catch (e) {
       print('Erro ao verificar os dados do usuário: $e');
       return false;
     }

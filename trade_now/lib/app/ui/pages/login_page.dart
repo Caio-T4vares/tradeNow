@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trade_now/app/controllers/login_controller.dart';
-import 'package:trade_now/app/core/constants/color_constants.dart';
+import 'package:trade_now/app/constants/color_constants.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -49,9 +49,15 @@ class LoginPage extends StatelessWidget {
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                           ),
-                          label: Text("Email", style: TextStyle(color: green6),),
+                          label: Text(
+                            "Email",
+                            style: TextStyle(color: green6),
+                          ),
                           hintText: "Digite o seu email",
-                          suffixIcon: Icon(Icons.email, color: green6,)),
+                          suffixIcon: Icon(
+                            Icons.email,
+                            color: green6,
+                          )),
                     ),
                     const SizedBox(
                       height: 20,
@@ -66,9 +72,15 @@ class LoginPage extends StatelessWidget {
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                           ),
-                          label: Text("Senha", style: TextStyle(color: green6),),
+                          label: Text(
+                            "Senha",
+                            style: TextStyle(color: green6),
+                          ),
                           hintText: "Digite a sua senha",
-                          suffixIcon: Icon(Icons.password, color: green6,)),
+                          suffixIcon: Icon(
+                            Icons.password,
+                            color: green6,
+                          )),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -80,8 +92,7 @@ class LoginPage extends StatelessWidget {
                             child: const Text(
                               "Não tenho conta",
                               style: TextStyle(
-                                  color: green6,
-                                  fontWeight: FontWeight.bold),
+                                  color: green6, fontWeight: FontWeight.bold),
                             )),
                       ],
                     ),
@@ -94,7 +105,10 @@ class LoginPage extends StatelessWidget {
                           fixedSize:
                               const WidgetStatePropertyAll(Size(160, 20)),
                           backgroundColor: WidgetStateProperty.all(green3)),
-                      child: const Text("Login", style: TextStyle(color: green6),),
+                      child: const Text(
+                        "Login",
+                        style: TextStyle(color: green6),
+                      ),
                     )
                   ],
                 )),

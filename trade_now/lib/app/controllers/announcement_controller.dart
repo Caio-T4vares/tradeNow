@@ -10,7 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:trade_now/app/core/services/firestore_service.dart';
+import 'package:trade_now/app/services/firestore_service.dart';
 import 'package:trade_now/app/model/address.dart';
 import 'package:trade_now/app/model/product.dart';
 
@@ -29,7 +29,7 @@ class AnnouncementController extends GetxController {
 
   RxList<Product> userProducts = <Product>[].obs;
   RxMap<String?, Address> productAddress = <String, Address>{}.obs;
-  
+
   final ImagePicker _picker = ImagePicker();
   RxList<File> selectedImages = <File>[].obs;
 
@@ -46,21 +46,20 @@ class AnnouncementController extends GetxController {
     try {
       User? user = _auth.currentUser;
 
-      if(user != null && selectedImages.isNotEmpty) {
+      if (user != null && selectedImages.isNotEmpty) {
         DocumentReference productRef = _firestore.collection('products').doc();
         String productId = productRef.id;
 
         List<String>? imageUrls = await uploadImagens(productId);
         Product product = Product(
-          id: productId,
-          name: titleController.text,
-          description: descriptionController.text,
-          price: double.tryParse(priceController.text),
-          condition: selectedCondition.value,
-          category: selectedCategory.value,
-          imgsUrl: imageUrls,
-          addressId: selectedAddress.value?.id
-        );
+            id: productId,
+            name: titleController.text,
+            description: descriptionController.text,
+            price: double.tryParse(priceController.text),
+            condition: selectedCondition.value,
+            category: selectedCategory.value,
+            imgsUrl: imageUrls,
+            addressId: selectedAddress.value?.id);
 
         await productRef.set({
           'id': product.id,
@@ -75,13 +74,11 @@ class AnnouncementController extends GetxController {
         });
 
         Get.snackbar("Sucesso", "Anúncio salvo com sucesso!");
-      }
-      else {
+      } else {
         Get.snackbar("Erro", "Selecione pelo menos uma imagem para o anúncio");
       }
-    }
-    catch(e) {
-       Get.snackbar("Erro", "Erro ao salvar o anúncio: $e");
+    } catch (e) {
+      Get.snackbar("Erro", "Erro ao salvar o anúncio: $e");
     }
   }
 
@@ -100,7 +97,8 @@ class AnnouncementController extends GetxController {
         }
       }
 
-      selectedImages.value = compressedImages; // Atualiza a lista de imagens selecionadas
+      selectedImages.value =
+          compressedImages; // Atualiza a lista de imagens selecionadas
     } else {
       Get.snackbar("Erro", "Você pode selecionar até 3 imagens.");
     }
@@ -109,8 +107,8 @@ class AnnouncementController extends GetxController {
   Future<List<String>?> uploadImagens(String productId) async {
     try {
       List<String> imageUrls = [];
-      
-      for(File image in selectedImages) {
+
+      for (File image in selectedImages) {
         String imagePath = 'images/$productId/${image.path.split('/').last}';
         Reference storageRef = _storage.ref().child(imagePath);
         UploadTask uploadTask = storageRef.putFile(image);
@@ -132,11 +130,12 @@ class AnnouncementController extends GetxController {
     for (String url in imageUrls) {
       File? file = await _baixarImagem(url);
       if (file != null) {
-        downloadedImages.add(file);  // Adiciona à lista de imagens baixadas
+        downloadedImages.add(file); // Adiciona à lista de imagens baixadas
       }
     }
 
-    selectedImages.value = downloadedImages;  // Atualiza as imagens no controller
+    selectedImages.value =
+        downloadedImages; // Atualiza as imagens no controller
   }
 
   Future<File?> _baixarImagem(String url) async {
@@ -157,7 +156,8 @@ class AnnouncementController extends GetxController {
 
   Future<XFile?> compressImage(File imageFile) async {
     final directory = await getTemporaryDirectory();
-    final targetPath = '${directory.path}/compressed_${imageFile.path.split('/').last}';
+    final targetPath =
+        '${directory.path}/compressed_${imageFile.path.split('/').last}';
 
     // Comprime a imagem
     var result = await FlutterImageCompress.compressAndGetFile(
@@ -172,7 +172,7 @@ class AnnouncementController extends GetxController {
   Future<void> getUserProducts() async {
     try {
       User? user = _auth.currentUser;
-      if(user != null) {
+      if (user != null) {
         QuerySnapshot snapshot = await _firestore
             .collection('products')
             .where('userId', isEqualTo: user.uid)
@@ -180,24 +180,22 @@ class AnnouncementController extends GetxController {
 
         List<Product> products = snapshot.docs.map((doc) {
           return Product(
-            name: doc['name'],
-            description: doc['description'],
-            price: doc['price'].toDouble(),
-            condition: doc['condition'],
-            category: doc['category'],
-            imgsUrl: List<String>.from(doc['imgUrls'] ?? []),
-            addressId: doc['addressId']
-          );
+              name: doc['name'],
+              description: doc['description'],
+              price: doc['price'].toDouble(),
+              condition: doc['condition'],
+              category: doc['category'],
+              imgsUrl: List<String>.from(doc['imgUrls'] ?? []),
+              addressId: doc['addressId']);
         }).toList();
 
         userProducts.value = products;
-        productAddress.value = await _service.fetchAllProductAddresses(userProducts);
-      }
-      else {
+        productAddress.value =
+            await _service.fetchAllProductAddresses(userProducts);
+      } else {
         Get.snackbar("Erro", "Usuário não autenticado.");
       }
-    }
-    catch(e) {
+    } catch (e) {
       Get.snackbar("Erro", "Erro ao buscar anúncios: $e");
     }
   }
@@ -213,14 +211,13 @@ class AnnouncementController extends GetxController {
 
         List<Address> fetchedAddresses = snapshot.docs.map((doc) {
           return Address(
-            id: doc.id,
-            estado: doc['estado'],
-            cidade: doc['cidade'],
-            rua: doc['rua'],
-            bairro: doc['bairro'],
-            userId: doc['userId'],
-            isSelected: doc['isSelected']
-          );
+              id: doc.id,
+              estado: doc['estado'],
+              cidade: doc['cidade'],
+              rua: doc['rua'],
+              bairro: doc['bairro'],
+              userId: doc['userId'],
+              isSelected: doc['isSelected']);
         }).toList();
 
         addresses.value = fetchedAddresses;
@@ -230,8 +227,7 @@ class AnnouncementController extends GetxController {
           orElse: () => addresses.first,
         );
       }
-    }
-    catch(e) {
+    } catch (e) {
       Get.snackbar("Erro", "Erro ao buscar endereços: $e");
     }
   }

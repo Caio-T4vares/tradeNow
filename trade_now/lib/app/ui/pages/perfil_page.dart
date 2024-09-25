@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trade_now/app/controllers/perfil_controller.dart';
-import 'package:trade_now/app/core/constants/color_constants.dart';
+import 'package:trade_now/app/constants/color_constants.dart';
 import 'package:trade_now/app/ui/components/app_bar.dart';
 import 'package:trade_now/app/ui/components/navigation_bar.dart';
 

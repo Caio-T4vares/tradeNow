@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trade_now/app/core/constants/color_constants.dart';
+import 'package:trade_now/app/constants/color_constants.dart';
 import 'package:trade_now/app/model/product.dart';
 
 import '../../controllers/product_details_controller.dart';
@@ -23,14 +23,14 @@ class HomeCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         comingFrom == 0
-          ? Text(
-            category,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold
-            ),
-          )
-        : const SizedBox(height: 0,),
+            ? Text(
+                category,
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              )
+            : const SizedBox(
+                height: 0,
+              ),
         const SizedBox(height: 10),
         SizedBox(
           height: 200,
@@ -46,20 +46,20 @@ class HomeCard extends StatelessWidget {
                 )
               : ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: products.length > 10
-                    ? 10
-                    : products.length,
+                  itemCount: products.length > 10 ? 10 : products.length,
                   itemBuilder: (context, index) {
                     final product = products[index];
 
                     return InkWell(
                       onTap: () {
-                        switch(comingFrom) {
-                          case 0 : Get.toNamed('/details', arguments: product); break;
-                          case 1 :
+                        switch (comingFrom) {
+                          case 0:
+                            Get.toNamed('/details', arguments: product);
+                            break;
+                          case 1:
                             Get.delete<ProductDetailsController>();
                             Get.offAndToNamed("/details", arguments: product);
-                          break;
+                            break;
                         }
                       }, // Função de clique
                       child: Container(
@@ -72,7 +72,8 @@ class HomeCard extends StatelessWidget {
                           ),
                           elevation: 3,
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start, // Alinhamento à esquerda
+                            crossAxisAlignment: CrossAxisAlignment
+                                .start, // Alinhamento à esquerda
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
@@ -93,7 +94,8 @@ class HomeCard extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(8),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start, // Alinhamento à esquerda
+                                  crossAxisAlignment: CrossAxisAlignment
+                                      .start, // Alinhamento à esquerda
                                   children: [
                                     Text(
                                       (product.name != null &&
@@ -101,9 +103,8 @@ class HomeCard extends StatelessWidget {
                                           ? '${product.name!.substring(0, 20)}...'
                                           : product.name ?? 'Nome do Produto',
                                       style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: green4
-                                      ),
+                                          fontWeight: FontWeight.bold,
+                                          color: green4),
                                     ),
                                     const SizedBox(height: 4),
                                     Text(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trade_now/app/controllers/navigation_bar_controller.dart';
-import 'package:trade_now/app/core/constants/color_constants.dart';
+import 'package:trade_now/app/constants/color_constants.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({super.key});

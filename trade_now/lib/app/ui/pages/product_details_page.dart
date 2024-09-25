@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trade_now/app/controllers/product_details_controller.dart';
-import 'package:trade_now/app/core/constants/color_constants.dart';
+import 'package:trade_now/app/constants/color_constants.dart';
 import 'package:trade_now/app/ui/components/app_bar.dart';
 import 'package:trade_now/app/ui/components/home_card.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -85,8 +85,8 @@ class ProductDetailsPage extends StatelessWidget {
                         child: Container(
                           width: screenWidth,
                           padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              border: Border.all(color: green3)),
+                          decoration:
+                              BoxDecoration(border: Border.all(color: green3)),
                           child: Text(
                             controller.product.value.description == null
                                 ? ""

@@ -1,8 +1,8 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:trade_now/app/core/services/firestore_service.dart';
-import 'package:trade_now/app/core/services/location_service.dart';
+import 'package:trade_now/app/services/firestore_service.dart';
+import 'package:trade_now/app/services/location_service.dart';
 
 import '../model/address.dart';
 import '../model/product.dart';
@@ -20,15 +20,18 @@ class HomeController extends GetxController {
   void onInit() async {
     super.onInit();
     _getCurrentLocationAndState();
-    productsList.value = await _firestoreService.getProductsByState(currentLocationState.value);
-    productAddress.value = await _firestoreService.fetchAllProductAddresses(productsList);
+    productsList.value =
+        await _firestoreService.getProductsByState(currentLocationState.value);
+    productAddress.value =
+        await _firestoreService.fetchAllProductAddresses(productsList);
   }
 
   Future<void> _getCurrentLocationAndState() async {
     try {
       Position position = await _locationService.determinePosition();
-      List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
-      
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+
       if (placemarks.isNotEmpty) {
         currentLocationState.value = placemarks.first.administrativeArea ?? '';
         Get.snackbar('Sucesso', 'Localização atribuída');
@@ -41,7 +44,11 @@ class HomeController extends GetxController {
   }
 
   void updateLists() async {
-    productsList.value = await _firestoreService.getProductsByState(currentLocationState.value);
-    productAddress.value = await _firestoreService.fetchAllProductAddresses(productsList);
+    productsList.value =
+        await _firestoreService.getProductsByState(currentLocationState.value);
+    productAddress.value =
+        await _firestoreService.fetchAllProductAddresses(productsList);
+    productsList.refresh();
+    productAddress.refresh();
   }
 }

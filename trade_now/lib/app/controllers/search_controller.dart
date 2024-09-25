@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:trade_now/app/core/services/firestore_service.dart';
-import 'package:trade_now/app/core/services/location_service.dart';
+import 'package:trade_now/app/services/firestore_service.dart';
+import 'package:trade_now/app/services/location_service.dart';
 
 import '../model/address.dart';
 import '../model/product.dart';
@@ -25,8 +25,10 @@ class SearchPageController extends GetxController {
   void onInit() async {
     super.onInit();
     await _getCurrentLocationAndState();
-    productsList = await _firestoreService.getProductsByState(currentLocationState.value);
-    productAddress.value = await _firestoreService.fetchAllProductAddresses(productsList);
+    productsList =
+        await _firestoreService.getProductsByState(currentLocationState.value);
+    productAddress.value =
+        await _firestoreService.fetchAllProductAddresses(productsList);
     filteredList.value = productsList.toList();
     filteredList.refresh();
   }
@@ -69,10 +71,12 @@ class SearchPageController extends GetxController {
   }
 
   void updateLists() async {
-    productsList = await _firestoreService.getProductsByState(currentLocationState.value);
+    productsList =
+        await _firestoreService.getProductsByState(currentLocationState.value);
     filteredList.value = productsList.toList();
     filteredList.refresh();
-    productAddress.value = await _firestoreService.fetchAllProductAddresses(filteredList);
+    productAddress.value =
+        await _firestoreService.fetchAllProductAddresses(filteredList);
     categoria.value = Get.arguments;
     changeCategory(categoria.value);
   }

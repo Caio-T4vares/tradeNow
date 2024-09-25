@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trade_now/app/core/constants/color_constants.dart';
+import 'package:trade_now/app/constants/color_constants.dart';
 
 class CategoryCard extends StatelessWidget {
   final IconData icon;
