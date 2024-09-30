@@ -23,11 +23,27 @@ class HomeCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         comingFrom == 0
-            ? Text(
-                category,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              )
+            ? Row(
+              children: [
+                Text(
+                  category,
+                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(width: 10,),
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed('/search', arguments: category);
+                  },
+                  child: const Text(
+                    "Ver mais...",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: green5
+                    ),
+                  ),
+                ),
+              ],
+            )
             : const SizedBox(
                 height: 0,
               ),

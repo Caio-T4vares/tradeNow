@@ -79,96 +79,116 @@ class AnnouncementPage extends StatelessWidget {
               const SizedBox(height: 16),
               TextField(
                 controller: controller.descriptionController,
-                maxLines: 4,
+                maxLines: 2,
                 decoration: const InputDecoration(
                   labelText: 'Descrição',
                   border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 16),
-              TextField(
-                controller: controller.priceController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: 'Preço',
-                  border: OutlineInputBorder(),
-                ),
+
+              // Row para Preço e Categoria lado a lado
+              Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: TextField(
+                      controller: controller.priceController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: 'Preço',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    flex: 1,
+                    child: Obx(() {
+                      return DropdownButtonFormField<String>(
+                        value: controller.selectedCategory.value,
+                        decoration: const InputDecoration(
+                          labelText: 'Categoria',
+                          border: OutlineInputBorder(),
+                        ),
+                        onChanged: (value) {
+                          controller.selectedCategory.value = value!;
+                        },
+                        items: [
+                          'Eletrônicos',
+                          'Móveis',
+                          'Livros',
+                          'Automóveis',
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      );
+                    }),
+                  ),
+                ],
               ),
               const SizedBox(height: 16),
-              Obx(() {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Endereço',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    DropdownButton<Address>(
-                      value: controller.selectedAddress.value,
-                      hint: const Text('Selecione um endereço'),
-                      onChanged: (value) {
-                        controller.selectedAddress.value = value!;
-                      },
-                      items: controller.addresses.map((Address address) {
-                        return DropdownMenuItem(
-                          value: address,
-                          child: Text('${address.rua}'),
-                        );
-                      }).toList(),
-                    ),
-                  ],
-                );
-              }),
-              const SizedBox(height: 16),
-              Obx(() {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Text('Categoria', style: TextStyle(fontSize: 16)),
-                    DropdownButton<String>(
-                      value: controller.selectedCategory.value,
-                      hint: const Text('Selecione uma categoria'),
-                      onChanged: (value) {
-                        controller.selectedCategory.value = value!;
-                      },
-                      items: [
-                        'Eletrônicos',
-                        'Móveis',
-                        'Livros',
-                        'Automóveis',
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ],
-                );
-              }),
-              const SizedBox(height: 16),
-              Obx(() {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Text('Condição', style: TextStyle(fontSize: 16)),
-                    DropdownButton<String>(
-                      value: controller.selectedCondition.value,
-                      hint: const Text('Selecione uma categoria'),
-                      onChanged: (value) {
-                        controller.selectedCondition.value = value!;
-                      },
-                      items: ['Novo', 'Usado']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ],
-                );
-              }),
+
+              // Row para Condição e Endereço lado a lado
+              Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Obx(() {
+                      return DropdownButtonFormField<String>(
+                        value: controller.selectedCondition.value,
+                        decoration: const InputDecoration(
+                          labelText: 'Condição',
+                          border: OutlineInputBorder(),
+                        ),
+                        onChanged: (value) {
+                          controller.selectedCondition.value = value!;
+                        },
+                        items: ['Novo', 'Usado']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      );
+                    }),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    flex: 1,
+                    child: Obx(() {
+                      return DropdownButtonFormField<Address>(
+                        value: controller.selectedAddress.value,
+                        decoration: const InputDecoration(
+                          labelText: 'Endereço',
+                          border: OutlineInputBorder(),
+                        ),
+                        onChanged: (value) {
+                          controller.selectedAddress.value = value!;
+                        },
+                        selectedItemBuilder: (BuildContext context) {
+                          return controller.addresses.map((Address address) {
+                            String? displayText = address.rua!.length > 13
+                                ? '${address.rua?.substring(0, 13)}...'
+                                : address.rua;
+                            return Text(displayText!);
+                          }).toList();
+                        },
+                        items: controller.addresses.map((Address address) {
+                          return DropdownMenuItem(
+                            value: address,
+                            child: Text('${address.rua}'),
+                          );
+                        }).toList(),
+                      );
+                    }),
+                  ),
+                ],
+              ),
               const SizedBox(height: 24),
               Center(
                 child: ElevatedButton(

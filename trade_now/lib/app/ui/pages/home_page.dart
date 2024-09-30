@@ -21,46 +21,6 @@ class HomePage extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              // Cards de categoria
-              GridView.count(
-                crossAxisCount: 2,
-                mainAxisSpacing: 8,
-                childAspectRatio: 1.5,
-                shrinkWrap: true,
-                physics:
-                    const NeverScrollableScrollPhysics(), // Para evitar rolagem no GridView
-                children: [
-                  CategoryCard(
-                    icon: Icons.phone_android,
-                    label: 'Eletrônicos',
-                    onTap: () {
-                      Get.toNamed('/search', arguments: 'Eletrônicos');
-                    },
-                  ),
-                  CategoryCard(
-                    icon: Icons.chair,
-                    label: 'Móveis',
-                    onTap: () {
-                      Get.toNamed('/search', arguments: 'Móveis');
-                    },
-                  ),
-                  CategoryCard(
-                    icon: Icons.directions_car,
-                    label: 'Automóveis',
-                    onTap: () {
-                      Get.toNamed('/search', arguments: 'Automóveis');
-                    },
-                  ),
-                  CategoryCard(
-                    icon: Icons.book,
-                    label: 'Livros',
-                    onTap: () {
-                      Get.toNamed('/search', arguments: 'Livros');
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
               // Carrossel de produtos
               Obx(() {
                 if (controller.productsList.isEmpty ||
