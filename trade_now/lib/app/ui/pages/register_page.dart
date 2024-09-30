@@ -45,6 +45,7 @@ class RegisterPage extends StatelessWidget {
                         keyboardType: TextInputType.emailAddress,
                         validator: (email) => controller.validateEmail(email),
                         decoration: const InputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
                             filled: true,
                             fillColor: green5,
                             border: OutlineInputBorder(
@@ -69,6 +70,7 @@ class RegisterPage extends StatelessWidget {
                             controller.validatePassword(senha),
                         obscureText: true,
                         decoration: const InputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
                             filled: true,
                             fillColor: green5,
                             border: OutlineInputBorder(
@@ -93,6 +95,7 @@ class RegisterPage extends StatelessWidget {
                             controller.validadeConfirmPwd(confirmPwd),
                         obscureText: true,
                         decoration: const InputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
                             filled: true,
                             fillColor: green5,
                             border: OutlineInputBorder(

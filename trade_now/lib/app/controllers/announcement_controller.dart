@@ -70,7 +70,8 @@ class AnnouncementController extends GetxController {
           'price': product.price,
           'imgUrls': product.imgsUrl,
           'userId': user.uid,
-          'addressId': product.addressId
+          'addressId': product.addressId,
+          'views': product.views,
         });
 
         Get.snackbar("Sucesso", "Anúncio salvo com sucesso!");
