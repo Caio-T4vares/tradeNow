@@ -94,30 +94,4 @@ class SearchProductCard extends StatelessWidget {
       },
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return ListTile(
-  //     shape: Border.all(color: Colors.black),
-  //     onTap: () => Get.toNamed("/details", arguments: produto),
-  //     leading: SizedBox(
-  //       width: 80,
-  //       child: Image.network(
-  //         produto.imgsUrl!.first,
-  //         fit: BoxFit.fill,
-  //       ),
-  //     ),
-  //     title: SizedBox(
-  //       height: 30,
-  //       child: Text(
-  //         "${produto.name}",
-  //         style: const TextStyle(overflow: TextOverflow.ellipsis),
-  //       ),
-  //     ),
-  //     subtitle: Text(
-  //       "R\$ ${produto.price!.toStringAsFixed(2)}",
-  //       style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-  //     ),
-  //   );
-  // }
 }
