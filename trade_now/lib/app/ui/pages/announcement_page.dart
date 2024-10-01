@@ -194,7 +194,7 @@ class AnnouncementPage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     controller.salvarAnuncio();
-                    Get.back();
+                    Get.toNamed("/home");
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: green4,

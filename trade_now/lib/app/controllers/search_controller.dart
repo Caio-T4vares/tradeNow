@@ -25,12 +25,17 @@ class SearchPageController extends GetxController {
   void onInit() async {
     super.onInit();
     await _getCurrentLocationAndState();
-    productsList =
-        await _firestoreService.getProductsByState(currentLocationState.value);
-    productAddress.value =
-        await _firestoreService.fetchAllProductAddresses(productsList);
-    filteredList.value = productsList.toList();
-    filteredList.refresh();
+    if (!(Get.arguments.isEmpty || Get.arguments == null)) {
+      categoria.value = Get.arguments;
+      changeCategory(categoria.value);
+    } else {
+      productsList = await _firestoreService
+          .getProductsByState(currentLocationState.value);
+      productAddress.value =
+          await _firestoreService.fetchAllProductAddresses(productsList);
+      filteredList.value = productsList.toList();
+      filteredList.refresh();
+    }
   }
 
   Future<void> _getCurrentLocationAndState() async {
